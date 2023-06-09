@@ -15,5 +15,13 @@ namespace angular_vega.Persistence
         }
 
         public DbSet<Make> Makes { get; set; }
+        public DbSet<Feature> Features { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Make>()
+                .HasMany(e => e.Features)
+                .WithMany();
+        }
+
     }
 }

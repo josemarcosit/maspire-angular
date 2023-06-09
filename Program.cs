@@ -13,6 +13,17 @@ builder.Services.AddDbContext<VegaDbContext>(options=> options.UseSqlServer(buil
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>(), AppDomain.CurrentDomain.GetAssemblies());  
 
+builder.Services.AddCors(options=>{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader()
+        .AllowAnyMethod()
+        .WithOrigins("https://localhost:44466");
+        
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +34,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseStaticFiles();
 app.UseRouting();
 

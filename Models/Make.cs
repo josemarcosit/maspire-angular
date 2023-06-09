@@ -15,10 +15,12 @@ namespace angular_vega.Models
         public string Name { get; set; }
 
         public ICollection<Model> Models { get; set; }
+        public ICollection<Feature> Features { get; set; }
 
         public Make()
         {
             Models = new Collection<Model>();
+            Features = new Collection<Feature>();
         }
     }
 }
