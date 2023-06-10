@@ -25,19 +25,19 @@ Accept: application/json
 
 ###
 
-PUT https://localhost:7257/api/vehicles/11
+PUT https://localhost:7257/api/vehicles/14
 Content-Type: application/json
 Accept: application/json
 
 {
     "ModelId": 19,     
     "Contact":{
-        "Name": "Joel",
+        "Name": "Joel2",
         "Phone": "123456",
         "Email": "joel@test.com"    
     },
     "IsRegistered": true,   
-    "features": [1,2]
+    "features": [1,2,3]
 
 }
 

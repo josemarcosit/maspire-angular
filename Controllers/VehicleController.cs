@@ -28,7 +28,7 @@ namespace angular_vega.Controllers
         }       
      
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromBody]VehicleResource vehicleResource){
+        public async Task<IActionResult> CreateVehicle([FromBody]SaveVehicleResource vehicleResource){
 
 
             if(!ModelState.IsValid){
@@ -41,32 +41,42 @@ namespace angular_vega.Controllers
                 ModelState.AddModelError("ModelId","Invalid ModelId");
                 return BadRequest(ModelState);
             }
-            var vehicle = mapper.Map<VehicleResource,Vehicle>(vehicleResource);
+            var vehicle = mapper.Map<SaveVehicleResource,Vehicle>(vehicleResource);
             vehicle.LasUpdate = DateTime.Now;
 
             vegaDbContext.Vehicles.Add(vehicle);
             await vegaDbContext.SaveChangesAsync();
+             
+             vehicle = await vegaDbContext.Vehicles
+            .Include(v=> v.Features)
+            .ThenInclude(vf=> vf.Feature)
+            .Include(v => v.Model)
+            .Include(v => v.Model.Make)
+            .SingleOrDefaultAsync(v=> v.Id == vehicle.Id);
 
             var result = mapper.Map<Vehicle,VehicleResource>(vehicle);
             return Ok(result);
         }
 
           [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody]VehicleResource vehicleResource){
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody]SaveVehicleResource vehicleResource){
 
 
             if(!ModelState.IsValid){
                 return BadRequest(ModelState);
             }
+              
+              var vehicle = await vegaDbContext.Vehicles
+            .Include(v=> v.Features)
+            .ThenInclude(vf=> vf.Feature)
+            .Include(v => v.Model)
+            .Include(v => v.Model.Make)
+            .SingleOrDefaultAsync(v=> v.Id == id);
 
-            var model= await vegaDbContext.Models.FindAsync(vehicleResource.ModelId);
-
-            if(model == null){
-                ModelState.AddModelError("ModelId","Invalid ModelId");
-                return BadRequest(ModelState);
-            }
-            var vehicle = await vegaDbContext.Vehicles.Include(v=> v.Features).SingleOrDefaultAsync(v=> v.Id == id);
-            mapper.Map<VehicleResource,Vehicle>(vehicleResource, vehicle);
+            if(vehicle == null){                
+                return NotFound();
+            }            
+            mapper.Map<SaveVehicleResource,Vehicle>(vehicleResource, vehicle);            
             vehicle.LasUpdate = DateTime.Now;            
 
             await vegaDbContext.SaveChangesAsync();
@@ -99,7 +109,12 @@ namespace angular_vega.Controllers
                 return BadRequest(ModelState);
             }
             
-            var vehicle = await vegaDbContext.Vehicles.Include(v=> v.Features).SingleOrDefaultAsync(v=> v.Id == id);             
+            var vehicle = await vegaDbContext.Vehicles
+            .Include(v=> v.Features)
+            .ThenInclude(vf=> vf.Feature)
+            .Include(v => v.Model)
+            .Include(v => v.Model.Make)
+            .SingleOrDefaultAsync(v=> v.Id == id);             
             if(vehicle == null)
                 return NotFound();
             
