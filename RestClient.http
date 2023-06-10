@@ -3,4 +3,52 @@ GET https://localhost:7257/api/makes
 
 ###
 
-https://localhost:7257/api/vehicle/features
+GET https://localhost:7257/api/vehicle/features
+
+###
+
+POST https://localhost:7257/api/vehicles
+Content-Type: application/json
+Accept: application/json
+
+{
+    "ModelId": 19,     
+    "Contact":{
+        "Name": "Joel",
+        "Phone": "123456",
+        "Email": "joel@test.com"    
+    },
+    "IsRegistered": true,   
+    "features": [1,2,3]
+
+}
+
+###
+
+PUT https://localhost:7257/api/vehicles/11
+Content-Type: application/json
+Accept: application/json
+
+{
+    "ModelId": 19,     
+    "Contact":{
+        "Name": "Joel",
+        "Phone": "123456",
+        "Email": "joel@test.com"    
+    },
+    "IsRegistered": true,   
+    "features": [1,2]
+
+}
+
+###
+
+DELETE https://localhost:7257/api/vehicles/11
+Content-Type: application/json
+Accept: application/json
+
+###
+
+GET https://localhost:7257/api/vehicles/11
+Content-Type: application/json
+Accept: application/json
