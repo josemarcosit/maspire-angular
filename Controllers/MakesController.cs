@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using angular_vega.Controllers.Resources;
-using angular_vega.Models;
+using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;

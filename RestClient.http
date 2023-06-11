@@ -1,30 +1,46 @@
-
+# @name Makes
 GET https://localhost:7257/api/makes
 
 ###
 
+# @name Features
 GET https://localhost:7257/api/vehicle/features
 
 ###
+# @name Vehicle
+GET https://localhost:7257/api/vehicles/14
+Content-Type: application/json
+Accept: application/json
+###
 
+###
+# @name Vehicles
+GET https://localhost:7257/api/vehicles
+Content-Type: application/json
+Accept: application/json
+###
+
+# @name VehiclesCreate
 POST https://localhost:7257/api/vehicles
 Content-Type: application/json
 Accept: application/json
 
 {
-    "ModelId": 19,     
-    "Contact":{
+    "modelId": 19,     
+    "makeId": 7,     
+    "contact":{
         "Name": "Joel",
         "Phone": "123456",
         "Email": "joel@test.com"    
     },
-    "IsRegistered": true,   
+    "isRegistered": true,   
     "features": [1,2,3]
 
 }
 
 ###
 
+# @name VehiclesUpdate
 PUT https://localhost:7257/api/vehicles/14
 Content-Type: application/json
 Accept: application/json
@@ -43,12 +59,8 @@ Accept: application/json
 
 ###
 
+# @name VehiclesDelete
 DELETE https://localhost:7257/api/vehicles/11
 Content-Type: application/json
 Accept: application/json
 
-###
-
-GET https://localhost:7257/api/vehicles/11
-Content-Type: application/json
-Accept: application/json

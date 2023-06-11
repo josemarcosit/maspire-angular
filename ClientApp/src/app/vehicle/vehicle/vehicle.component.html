@@ -1,0 +1,23 @@
+<h1>Vehicles</h1>
+<div class="">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">MAKE</th>
+        <th scope="col">MODEL</th>
+        <th scope="col">CONTACT NAME</th>
+        <th scope="col">VIEW</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of vehicles">
+        <td>{{v.id }}</td>
+        <td>{{v.make.id }}</td>
+        <td>{{v.model.id }}</td>
+        <td>{{v.contact.name }}</td>
+        <td>View</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

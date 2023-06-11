@@ -1,39 +1,42 @@
 <h1>New Vehicle</h1>
-<form>
+{{ vehicle | json }}
+<form #f="ngForm" (ngSubmit)="submit()" novalidate>
   <div class="form-group">
     <label for="make">Make</label>
-    <select name="make" class="form-control" (change)="onMakeChange()" [(ngModel)]="vehicle.make">
+    <select name="makeId" class="form-control" (change)="onMakeChange()" [(ngModel)]="vehicle.makeId" required #make="ngModel">
       <option value=""></option>
       <option *ngFor="let m of makes" value="{{ m.id}}">{{m.name}}</option>
     </select>
+    <div class="alert alert-danger" *ngIf="make.touched && !make.valid" >Please Specify the make.</div>
   </div>
   <div class="form-group">
     <label for="model">Model</label>
-    <select name="model" id="model" class="form-control">
+    <select name="modelId" id="model" class="form-control" [(ngModel)]="vehicle.modelId" >
       <option *ngFor="let m of models" value="{{ m.id}}">{{m.name}}</option>
     </select>
   </div>
   <p>Is this vehicle registered?</p>
   <div class="radio">
     <label for="registered"></label>
-    <input name="isregistered" type="radio" id="registered" value="true" class="radio-inline"> YES
+    <input name="isRegistered" type="radio" id="registered" [value]="true" class="radio-inline" [(ngModel)]="vehicle.isRegistered"> YES
      <label for="noRegistered"></label>
-    <input name="isregistered" type="radio" id="noRegistered" value="true" class="radio-inline"> NO
+    <input name="isRegistered" type="radio" id="noRegistered" [value]="false" class="radio-inline" [(ngModel)]="vehicle.isRegistered"> NO
   </div>
   <h2>Features</h2>
-  <div class="checkboxes" *ngFor="let f of features"><label for="feature{{f.id}"></label>
-  <input type="checkbox" id="feature{{f.id}}"> {{f.name}}
+  <div class="checkboxes" *ngFor="let f of features"><label for="feature{{f.id}" ></label>
+  <input type="checkbox" id="feature{{f.id}}" (change)="onFeatureToggle(f.id, $event)" [checked]="vehicle.features.includes(f.id)" > {{f.name}}
   </div>
 <h2>Contact</h2>
 <div class="form-group">
   <label for="contactName">Name</label>
-  <input type="text" id="contactName" class="form-control">
+  <input type="text" id="contactName" class="form-control" [(ngModel)]="vehicle.contact.name" name="contactName">
   <label for="contactPhone">Phone</label>
-  <input type="text" id="contactPhone" class="form-control">
+  <input type="text" id="contactPhone" class="form-control" [(ngModel)]="vehicle.contact.phone" name="contactPhone">
   <label for="contactEmail">Email</label>
-  <input type="text" id="contactEmail" class="form-control">
+  <input type="text" id="contactEmail" class="form-control" [(ngModel)]="vehicle.contact.email" name="contactEmail">
 
   <button class="bn btn-primary">Save</button>
+  <button *ngIf="vehicle.id" class="bn btn-danger" type="button" (click)="delete()">Delete</button>
 
 </div>
 </form>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using angular_vega.Controllers.Resources;
-using angular_vega.Models;
+using angular_vega.Core.Models;
 using AutoMapper;
 
 namespace angular_vega.Mapping

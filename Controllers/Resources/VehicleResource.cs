@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using angular_vega.Models;
+using angular_vega.Core.Models;
 
 namespace angular_vega.Controllers.Resources
 {

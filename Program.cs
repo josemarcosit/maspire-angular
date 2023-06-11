@@ -2,6 +2,7 @@ using angular_vega.Persistence;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using angular_vega.Mapping;
+using angular_vega.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,14 @@ builder.Services.AddCors(options=>{
         
     });
 });
+builder.Services.AddScoped<IVehicleRepository,VehicleRepository>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 
 var app = builder.Build();
 
