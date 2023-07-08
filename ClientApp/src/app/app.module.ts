@@ -15,7 +15,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppErrorHandler } from './app.error-handler';
 import { VehicleComponent } from './vehicle/vehicle/vehicle.component';
-import { VehicleModule } from './vehicle/vehicle.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaginationComponent } from './shared/pagination/pagination.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,13 +25,15 @@ import { VehicleModule } from './vehicle/vehicle.module';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    VehicleFormComponent
+    VehicleFormComponent,
+    VehicleComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: VehicleComponent, pathMatch: 'full' },
+      { path: '', redirectTo:'vehicles', pathMatch: 'full' },
       { path: 'home', component: VehicleComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
@@ -45,7 +49,8 @@ import { VehicleModule } from './vehicle/vehicle.module';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    VehicleModule
+    RouterModule,
+    FontAwesomeModule
     ],
   providers: [{provide: ErrorHandler, useClass: AppErrorHandler} ,VehicleService],
   bootstrap: [AppComponent]

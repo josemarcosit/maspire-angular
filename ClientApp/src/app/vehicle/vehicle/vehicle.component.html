@@ -1,13 +1,27 @@
 <h1>Vehicles</h1>
+<a class="btn btn-primary" [routerLink]="['/vehicle/new']">New Vehicle</a>
+<div class="well">
+  <div class="form-group">
+    <label for="make">Make</label>
+    <select name="makeId" class="form-control" [(ngModel)]="query.makeId" (change)="onFilterChange()" #make="ngModel" >
+      <option value=""></option>
+      <option *ngFor="let m of makes" value="{{ m.id}}" >{{m.name}}</option>
+    </select>
+    <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+  </div>
+</div>
+
 <div class="">
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">MAKE</th>
-        <th scope="col">MODEL</th>
-        <th scope="col">CONTACT NAME</th>
-        <th scope="col">VIEW</th>
+        <th scope="col">Id</th>
+        <th scope="col" (click)="sortBy('make')" >Make
+          <fa-icon icon="coffee"></fa-icon>
+        </th>
+        <th scope="col" (click)="sortBy('model')" >Model</th>
+        <th scope="col" (click)="sortBy('contactName')">Contact Name</th>
+        <th scope="col" >View</th>
       </tr>
     </thead>
     <tbody>
@@ -21,3 +35,4 @@
     </tbody>
   </table>
 </div>
+<app-pagination [totalItems]="10" [pageSize]="3" (pageChanged)="onPageChange($event)"></app-pagination>

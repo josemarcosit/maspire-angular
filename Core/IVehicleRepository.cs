@@ -13,6 +13,6 @@ namespace angular_vega.Persistence
         Task<Vehicle> GetVehicleWithMake(int id);
         void Add(Vehicle vehicle);
         void Remove(Vehicle vehicle);
-        Task<IEnumerable<Vehicle>> GetVehicles();
+        Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery vehicleQuery);
     }
 }

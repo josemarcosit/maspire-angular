@@ -8,8 +8,11 @@ import { Vehicle } from '../shared/models/vehicle';
   providedIn: 'root'
 })
 export class VehicleService {
+  private readonly vehiclesEndpoint = 'https://localhost:7257/api/vehicles';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+  }
 
   getMakes(){
     return this.http.get<Make[]>('https://localhost:7257/api/makes').pipe(
@@ -34,12 +37,12 @@ export class VehicleService {
       features: vehicle.features
     };
 
-    return this.http.post('https://localhost:7257/api/vehicles',data).pipe(
+    return this.http.post(this.vehiclesEndpoint,data).pipe(
         map(res => res ));
   }
 
   getVehicle(id: number){
-    return this.http.get<any>('https://localhost:7257/api/vehicles/  ' + id).pipe(
+    return this.http.get<any>(this.vehiclesEndpoint + '/' + id).pipe(
       map(res => res ));
   }
 
@@ -56,18 +59,31 @@ export class VehicleService {
       features: vehicle.features
     };
 
-    return this.http.put('https://localhost:7257/api/vehicles/' + vehicle.id ,data).pipe(
+    return this.http.put(this.vehiclesEndpoint + '/' + vehicle.id ,data).pipe(
         map(res => res ));
   }
 
   delete(id:number){
-    return this.http.delete('https://localhost:7257/api/vehicles/' + id).pipe(
+    return this.http.delete(this.vehiclesEndpoint + '/' + id).pipe(
         map(res => res ));
   }
 
-  getVehicles(){
+  getVehicles(filter: any){
 
-    return this.http.get<Vehicle[]>('https://localhost:7257/api/vehicles').pipe(
+    return this.http.get<Vehicle[]>(this.vehiclesEndpoint + '?' + this.toQueryString(filter)).pipe(
       map(res => res ));
+  }
+
+  toQueryString(obj: any){
+    var parts = [];
+    for (var property in obj){
+      var value = obj[property];
+
+      if(value != null && value != undefined)
+        parts.push(encodeURIComponent(property) + '='+ encodeURIComponent(value));
+    }
+
+    return parts.join('&');
+
   }
 }

@@ -15,7 +15,14 @@ Accept: application/json
 
 ###
 # @name Vehicles
-GET https://localhost:7257/api/vehicles
+GET https://localhost:7257/api/vehicles?sortBy=Id
+Content-Type: application/json
+Accept: application/json
+###
+
+###
+# @name Vehicles
+GET https://localhost:7257/api/vehicles?page=1&pageSize=200
 Content-Type: application/json
 Accept: application/json
 ###
