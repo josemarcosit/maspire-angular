@@ -13,6 +13,7 @@ namespace angular_vega.Mapping
         public MappingProfile()     
         {
             //Domain to API Resource
+            CreateMap<Photo, PhotoResource>();
             CreateMap<Make,MakeResource>();
             CreateMap<Make,KeyValuePairResource>();
             CreateMap<Model,KeyValuePairResource>();
@@ -26,8 +27,8 @@ namespace angular_vega.Mapping
                  .ForMember(v=> v.Features, opt => opt.MapFrom(v=> v.Features.Select(vf => new KeyValuePairResource{Id = vf.Feature.Id, Name = vf.Feature.Name})));
 
             //API Resource to Domain
-             CreateMap<VehicleQueryResource,VehicleQuery>();    
-             CreateMap<SaveVehicleResource,Vehicle>()
+             CreateMap<VehicleQueryResource,VehicleQuery>();            
+            CreateMap<SaveVehicleResource,Vehicle>()
              .ForMember(v => v.Id, opt=> opt.Ignore())
              .ForMember(v=> v.ContactName, opt => opt.MapFrom(vr=> vr.Contact.Name))
               .ForMember(v=> v.ContactPhone, opt => opt.MapFrom(vr=> vr.Contact.Phone))

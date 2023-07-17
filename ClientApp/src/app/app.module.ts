@@ -17,6 +17,7 @@ import { AppErrorHandler } from './app.error-handler';
 import { VehicleComponent } from './vehicle/vehicle/vehicle.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginationComponent } from './shared/pagination/pagination.component';
+import { ViewVehicleComponent } from './vehicle/view-vehicle/view-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +34,15 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', redirectTo:'vehicles', pathMatch: 'full' },
-      { path: 'home', component: VehicleComponent, pathMatch: 'full' },
+      { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
+      { path: 'vehicles/new', component: VehicleFormComponent },
+      { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: ViewVehicleComponent },
+      { path: 'vehicles', component: VehicleComponent },
+      { path: 'home', component: HomeComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'vehicle/new', component: VehicleFormComponent },
-      { path: 'vehicle/:id', component: VehicleFormComponent },
-      { path: 'vehicles', component: VehicleComponent },
+      { path: '**', redirectTo: 'home' }   
     ]),
     FormsModule,
     CommonModule,

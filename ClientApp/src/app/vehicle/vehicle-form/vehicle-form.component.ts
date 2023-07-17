@@ -94,7 +94,12 @@ export class VehicleFormComponent implements OnInit {
         );
     }
     this.vehicleService.create(this.vehicle).subscribe(
-      x => console.log(x));
+      x => {
+        console.log(x);
+        this.toaster.success("Success", "Vehicle sucessfully created.");
+      }
+
+    );
   }
 
   delete(){
