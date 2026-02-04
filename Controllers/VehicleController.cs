@@ -1,17 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using angular_vega.Controllers.Resources;
 using angular_vega.Core;
-using angular_vega.Core.Models;
 using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace angular_vega.Controllers
 {
@@ -19,18 +11,18 @@ namespace angular_vega.Controllers
     public class VehicleController : Controller
     {
         private readonly ILogger<VehicleController> _logger;
-        private readonly IMapper mapper;        
+        private readonly IMapper mapper;
         private readonly IVehicleRepository _vehicleRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public VehicleController(ILogger<VehicleController> logger, IMapper mapper,        
+        public VehicleController(ILogger<VehicleController> logger, IMapper mapper,
         IVehicleRepository vehicleRepository,
         IUnitOfWork unitOfWork)
         {
             _vehicleRepository = vehicleRepository;
             this.unitOfWork = unitOfWork;
             _logger = logger;
-            this.mapper = mapper;            
+            this.mapper = mapper;
         }
 
         [HttpPost]
@@ -74,7 +66,7 @@ namespace angular_vega.Controllers
         public async Task<IActionResult> DeleteVehicle(int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            
+
             var vehicle = await _vehicleRepository.GetVehicle(id);
             if (vehicle == null)
                 return NotFound();
@@ -99,13 +91,13 @@ namespace angular_vega.Controllers
 
             return Ok(vehicleResource);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetVehicles(VehicleQueryResource filterResourse)
-        {           
-            var filter = mapper.Map<VehicleQueryResource,VehicleQuery>(filterResourse);
+        {
+            var filter = mapper.Map<VehicleQueryResource, VehicleQuery>(filterResourse);
 
-            var vehicles = await _vehicleRepository.GetVehicles(filter);      
+            var vehicles = await _vehicleRepository.GetVehicles(filter);
 
             var vehicleResource = mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
 

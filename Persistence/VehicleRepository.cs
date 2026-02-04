@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using angular_vega.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using angular_vega.Extensions;
 
 namespace angular_vega.Persistence
 {
@@ -60,34 +54,34 @@ namespace angular_vega.Persistence
                .ThenInclude(vf => vf.Feature)
                .AsQueryable();
 
-            if (queryObj.MakeId.HasValue)
-                query = query.Where(v => v.Model.MakeId == queryObj.MakeId);
+            // if (queryObj.MakeId.HasValue)
+            //     query = query.Where(v => v.Model.MakeId == queryObj.MakeId);
 
-            if (queryObj.ModelId.HasValue)
-                query = query.Where(v => v.ModelId == queryObj.ModelId);
+            // if (queryObj.ModelId.HasValue)
+            //     query = query.Where(v => v.ModelId == queryObj.ModelId);
 
-            if (queryObj.SortBy == "make")
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
+            // if (queryObj.SortBy == "make")
+            //     query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
 
-            if (queryObj.SortBy == "model")
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
+            // if (queryObj.SortBy == "model")
+            //     query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
 
-             if (queryObj.SortBy == "contactName")
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
+            //  if (queryObj.SortBy == "contactName")
+            //     query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
 
-            if (queryObj.SortBy == "id")
-                query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
+            // if (queryObj.SortBy == "id")
+            //     query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
 
-            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>()
-            {
-                ["make"] = v => v.Model.Make.Name,
-                ["model"] = v => v.Model.Name,
-                ["contactName"] = v => v.ContactName              
-            };
+            // var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>()
+            // {
+            //     ["make"] = v => v.Model.Make.Name,
+            //     ["model"] = v => v.Model.Name,
+            //     ["contactName"] = v => v.ContactName              
+            // };
 
-            query = query.ApplyOrdering(queryObj, columnsMap);
+            // query = query.ApplyOrdering(queryObj, columnsMap);
 
-             query = query.ApplySorting(queryObj);
+            //  query = query.ApplySorting(queryObj);
 
             return await query.ToListAsync();
 

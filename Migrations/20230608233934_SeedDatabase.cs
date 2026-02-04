@@ -25,14 +25,14 @@ namespace angular_vega.Migrations
 
             migrationBuilder.Sql("INSERT INTO Models (Name, MakeId) VALUES('Make3-ModelA', (SELECT Id FROM Makes WHERE Name = 'Make3'));");
             migrationBuilder.Sql("INSERT INTO Models (Name, MakeId) VALUES('Make3-ModelB', (SELECT Id FROM Makes WHERE Name = 'Make3'));");
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakeId) VALUES('Make3-ModelC', (SELECT Id FROM Makes WHERE Name = 'Make3'));");          
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakeId) VALUES('Make3-ModelC', (SELECT Id FROM Makes WHERE Name = 'Make3'));");
 
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Makes WHERE Name IN ('Make1','Make2','Make3')");            
+            migrationBuilder.Sql("DELETE FROM Makes WHERE Name IN ('Make1','Make2','Make3')");
         }
     }
 }

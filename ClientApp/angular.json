@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "angular_vega"
+  "defaultProject": "angular_vega",
+  "cli": {
+    "analytics": false
+  }
 }

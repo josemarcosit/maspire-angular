@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace angular_vega.Controllers.Resources
+﻿namespace angular_vega.Controllers.Resources
 {
     public class PhotoResource
     {
-        public int Id { get; set; }      
+        public int Id { get; set; }
         public string FileName { get; set; }
     }
 }

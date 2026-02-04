@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using angular_vega.Controllers.Resources;
 using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace angular_vega.Controllers
 {
@@ -30,13 +23,14 @@ namespace angular_vega.Controllers
         {
             return View();
         }
-        
+
         [HttpGet("/api/vehicle/features")]
-        public async Task<IEnumerable<Feature>> GetFeatures(){
-            
-            return  await vegaDbContext.Features.ToListAsync();
-                
-                
+        public async Task<IEnumerable<Feature>> GetFeatures()
+        {
+
+            return await vegaDbContext.Features.ToListAsync();
+
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

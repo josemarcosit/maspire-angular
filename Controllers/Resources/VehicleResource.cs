@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using angular_vega.Core.Models;
 
 namespace angular_vega.Controllers.Resources
 {
@@ -15,7 +10,7 @@ namespace angular_vega.Controllers.Resources
         public KeyValuePairResource Make { get; set; }
         public bool IsRegistered { get; set; }
 
-        public ContactResource Contact { get; set; }     
+        public ContactResource Contact { get; set; }
 
         public DateTime LasUpdate { get; set; }
 

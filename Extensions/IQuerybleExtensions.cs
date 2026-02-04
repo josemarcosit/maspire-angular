@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using angular_vega.Core.Models;
-using System.Collections.Generic;
 
 namespace angular_vega.Extensions
 {
@@ -30,7 +24,7 @@ namespace angular_vega.Extensions
 
             if (queryObj.Page == 0)
                 queryObj.Page = 10;
-                
+
             if (queryObj.PageSize == 0)
                 queryObj.PageSize = 10;
 

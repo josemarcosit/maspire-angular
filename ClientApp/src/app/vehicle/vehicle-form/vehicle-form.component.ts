@@ -2,7 +2,7 @@ import * as _ from 'underscore';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { SaveVehicle, Vehicle } from 'src/app/shared/models/vehicle';
 
@@ -98,7 +98,6 @@ export class VehicleFormComponent implements OnInit {
         console.log(x);
         this.toaster.success("Success", "Vehicle sucessfully created.");
       }
-
     );
   }
 

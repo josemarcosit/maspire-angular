@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace angular_vega.Core.Models
 {
     [Table("Vehicles")]
     public class Vehicle
     {
-         public int Id { get; set; }
-       
+        public int Id { get; set; }
+
         public int ModelId { get; set; }
 
         public Model Model { get; set; }
@@ -24,7 +20,7 @@ namespace angular_vega.Core.Models
         public string ContactName { get; set; }
 
         [Required]
-        [StringLength(255)] 
+        [StringLength(255)]
         public string ContactPhone { get; set; }
 
         [Required]

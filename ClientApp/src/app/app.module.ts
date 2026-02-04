@@ -31,6 +31,12 @@ import { ViewVehicleComponent } from './vehicle/view-vehicle/view-vehicle.compon
     PaginationComponent
   ],
   imports: [
+    FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     RouterModule.forRoot([
@@ -40,18 +46,10 @@ import { ViewVehicleComponent } from './vehicle/view-vehicle/view-vehicle.compon
       { path: 'vehicles/:id', component: ViewVehicleComponent },
       { path: 'vehicles', component: VehicleComponent },
       { path: 'home', component: HomeComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: '**', redirectTo: 'home' }   
-    ]),
-    FormsModule,
+    ]),   
     CommonModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-    }),
+    BrowserAnimationsModule,    
     RouterModule,
     FontAwesomeModule
     ],
