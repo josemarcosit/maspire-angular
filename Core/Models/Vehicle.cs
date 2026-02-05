@@ -8,11 +8,8 @@ namespace angular_vega.Core.Models
     public class Vehicle
     {
         public int Id { get; set; }
-
         public int ModelId { get; set; }
-
         public Model Model { get; set; }
-
         public bool IsRegistered { get; set; }
 
         [Required]
@@ -26,13 +23,9 @@ namespace angular_vega.Core.Models
         [Required]
         [StringLength(255)]
         public string ContactEmail { get; set; }
-
         public DateTime LasUpdate { get; set; }
-
         public ICollection<VehicleFeature> Features { get; set; }
-
         public ICollection<Photo> Photos { get; set; }
-
         public Vehicle()
         {
             Features = new Collection<VehicleFeature>();

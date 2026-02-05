@@ -14,10 +14,10 @@ namespace angular_vega.Controllers
         private readonly IMapper mapper;
         private readonly IVehicleRepository _vehicleRepository;
         private readonly IUnitOfWork unitOfWork;
-
-        public VehicleController(ILogger<VehicleController> logger, IMapper mapper,
-        IVehicleRepository vehicleRepository,
-        IUnitOfWork unitOfWork)
+        public VehicleController(ILogger<VehicleController> logger,
+                                 IMapper mapper,
+                                 IVehicleRepository vehicleRepository,
+                                 IUnitOfWork unitOfWork)
         {
             _vehicleRepository = vehicleRepository;
             this.unitOfWork = unitOfWork;

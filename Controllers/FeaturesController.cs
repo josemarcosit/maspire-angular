@@ -27,10 +27,7 @@ namespace angular_vega.Controllers
         [HttpGet("/api/vehicle/features")]
         public async Task<IEnumerable<Feature>> GetFeatures()
         {
-
             return await vegaDbContext.Features.ToListAsync();
-
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
