@@ -9,10 +9,9 @@ export class PhotoService {
   constructor(private http: HttpClient) { }
 
   upload(vehicleId: number, photo: File) {
-    var formData = new FormData();
-    
+    var formData = new FormData();    
     formData.append('file', photo)
-    return this.http.post(`/api/vehicles/${vehicleId}/photos`, formData);
-      
+
+    return this.http.post(`/api/vehicles/${vehicleId}/photos`, formData);      
   }
 }

@@ -28,7 +28,10 @@ export class VehicleFormComponent implements OnInit {
   };
   features: any[] = [];
 
-  constructor(private route: ActivatedRoute,private router: Router, private vehicleService: VehicleService, private toaster: ToastrService) {
+  constructor(private route: ActivatedRoute,
+    private router: Router, 
+    private vehicleService: VehicleService,
+    private toaster: ToastrService) {
 
     route.params.subscribe(p=>{
       this.vehicle.id = +p['id'];

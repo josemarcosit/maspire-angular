@@ -18,7 +18,6 @@ export class VehicleComponent implements OnInit {
     pageSize: 3
   };
 
-
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit(): void {
@@ -27,7 +26,6 @@ export class VehicleComponent implements OnInit {
     });
 
     this.populateVehicles();
-
   }
 
   private populateVehicles(){

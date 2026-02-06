@@ -9,7 +9,8 @@ import { VehicleService } from '../../services/vehicle.service';
   templateUrl: './view-vehicle.component.html',
   styleUrls: ['./view-vehicle.component.css']
 })
-export class ViewVehicleComponent implements OnInit {
+export class ViewVehicleComponent implements OnInit {  
+  activeTab: 'basic' | 'photos' = 'basic';
   file: any; // Variable to store file
   vehicle: any;
   vehicleId: number = 0;
@@ -61,4 +62,9 @@ export class ViewVehicleComponent implements OnInit {
     this.photoService.upload(this.vehicleId, this.file)
       .subscribe(x => console.log(x));
   }
+
+  selectTab(tab: 'basic' | 'photos') {
+    this.activeTab = tab;
+  }  
+  
 }

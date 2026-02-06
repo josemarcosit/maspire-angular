@@ -82,8 +82,6 @@ export class VehicleService {
       if(value != null && value != undefined)
         parts.push(encodeURIComponent(property) + '='+ encodeURIComponent(value));
     }
-
     return parts.join('&');
-
   }
 }

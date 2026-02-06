@@ -14,17 +14,16 @@ export class PaginationComponent {
   @Input() totalItems?: number = 10;
   @Output() pageChanged = new EventEmitter<number>();
 
-
   ngOnChanges(){
     this.currentPage = 1;
     let a = this.totalItems == undefined ? 1 : this.totalItems;
     let b = this.pageSize == undefined ? 1 : this.pageSize;
 
-		var pagesCount = Math.ceil(a / b);
-		for (var i = 1; i <= pagesCount; i++)
-			this.pages.push(i);
-
-    console.log(this);
+	var pagesCount = Math.ceil(a / b);
+	for (var i = 1; i <= pagesCount; i++)
+		this.pages.push(i);
+    
+	console.log(this);
 	}
 
 	changePage(page: any){

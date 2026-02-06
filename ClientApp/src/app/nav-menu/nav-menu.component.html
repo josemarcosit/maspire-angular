@@ -3,7 +3,10 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">angular_vega</a>
+      <a class="navbar-brand" [routerLink]="['/']">
+        Angular Vega
+      </a>
+
       <button
         class="navbar-toggler"
         type="button"
@@ -15,6 +18,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div
         class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
         [ngClass]="{ show: isExpanded }"
@@ -25,31 +29,19 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/vehicles']">
+              Vehicles
+            </a>
           </li>
+
           <li
-          class="nav-item"
-          [routerLinkActive]="['link-active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link text-dark" [routerLink]="['/vehicles']">Vehicles</a>
-        </li>
-          <li
-          class="nav-item"
-          [routerLinkActive]="['link-active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link text-dark" [routerLink]="['/vehicles/new']">New Vehicle</a>
-        </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
-            >
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link text-dark" [routerLink]="['/vehicles/new']">
+              New Vehicle
+            </a>
           </li>
         </ul>
       </div>
