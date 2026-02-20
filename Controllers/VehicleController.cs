@@ -3,11 +3,13 @@ using angular_vega.Core;
 using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace angular_vega.Controllers
 {
     [Route("/api/vehicles")]
+    [Authorize]
     public class VehicleController : Controller
     {
         private readonly ILogger<VehicleController> _logger;
@@ -27,8 +29,7 @@ namespace angular_vega.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
-        {
-            //throw new Exception();
+        {           
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);

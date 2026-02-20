@@ -1,39 +1,138 @@
+using angular_vega.Core;
 using angular_vega.Core.Models;
-using angular_vega.Persistence;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace angular_vega.Controllers
 {
-    // [Route("[controller]")]
+    [Route("api/[controller]")]   
+    [Authorize]
     public class FeaturesController : Controller
     {
+        private readonly IFeatureRepository _featureRepository;
         private readonly ILogger<FeaturesController> _logger;
-        private readonly VegaDbContext vegaDbContext;
-        private readonly IMapper mapper;
-        public FeaturesController(ILogger<FeaturesController> logger, VegaDbContext vegaDbContext, IMapper mapper)
+        private readonly IMapper _mapper;
+
+        public FeaturesController(
+            IFeatureRepository featureRepository,
+            ILogger<FeaturesController> logger,
+            IMapper mapper)
         {
+            _featureRepository = featureRepository;
             _logger = logger;
-            this.vegaDbContext = vegaDbContext;
-            this.mapper = mapper;
+            _mapper = mapper;
         }
-
-        public IActionResult Index()
+     
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Feature>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetFeatures()
         {
-            return View();
+            try
+            {
+                var features = await _featureRepository.GetAllFeaturesAsync();
+                return Ok(features);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter características");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter características");
+            }
         }
-
-        [HttpGet("/api/vehicle/features")]
-        public async Task<IEnumerable<Feature>> GetFeatures()
+       
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Feature), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetFeature(int id)
         {
-            return await vegaDbContext.Features.ToListAsync();
+            try
+            {
+                var feature = await _featureRepository.GetFeatureByIdAsync(id);
+                if (feature == null)
+                {
+                    return NotFound("Característica não encontrada");
+                }
+                return Ok(feature);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter a característica com ID: {FeatureId}", id);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter a característica");
+            }
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        
+        [HttpPost]
+        [ProducesResponseType(typeof(Feature), StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateFeature([FromBody] Feature feature)
         {
-            return View("Error!");
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                await _featureRepository.AddFeatureAsync(feature);
+                return CreatedAtAction(nameof(GetFeature), new { id = feature.Id }, feature);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao criar característica");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar característica");
+            }
+        }
+       
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(Feature), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateFeature(int id, [FromBody] Feature feature)
+        {
+            try
+            {
+                if (id != feature.Id)
+                {
+                    return BadRequest("ID não corresponde");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var existingFeature = await _featureRepository.GetFeatureByIdAsync(id);
+                if (existingFeature == null)
+                {
+                    return NotFound("Característica não encontrada");
+                }
+
+                await _featureRepository.UpdateFeatureAsync(feature);
+                return Ok(feature);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao atualizar característica com ID: {FeatureId}", id);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao atualizar característica");
+            }
+        }
+      
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteFeature(int id)
+        {
+            try
+            {
+                var feature = await _featureRepository.GetFeatureByIdAsync(id);
+                if (feature == null)
+                {
+                    return NotFound("Característica não encontrada");
+                }
+
+                await _featureRepository.DeleteFeatureAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao deletar característica com ID: {FeatureId}", id);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao deletar característica");
+            }
         }
     }
 }

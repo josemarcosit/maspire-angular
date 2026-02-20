@@ -2,19 +2,23 @@ using angular_vega.Controllers.Resources;
 using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace angular_vega.Controllers
 {
-    // [Route("[controller]")]
+    [Route("[controller]")]
+    [Authorize]
     public class MakesController : Controller
     {
         private readonly ILogger<MakesController> _logger;
         private readonly VegaDbContext vegaDbContext;
         private readonly IMapper mapper;
 
-        public MakesController(ILogger<MakesController> logger, VegaDbContext vegaDbContext, IMapper mapper)
+        public MakesController(ILogger<MakesController> logger,
+                               VegaDbContext vegaDbContext,
+                               IMapper mapper)
         {
             _logger = logger;
             this.vegaDbContext = vegaDbContext;

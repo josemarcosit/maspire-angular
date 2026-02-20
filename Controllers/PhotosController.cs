@@ -3,11 +3,13 @@ using angular_vega.Core;
 using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace angular_vega.Controllers
 {
     [Route("/api/vehicles/{vehicleId}/photos")]
+    [Authorize]
     public class PhotosController : Controller
     {
         private const int MAX_BYTES = 10 * 1024 * 1024;
