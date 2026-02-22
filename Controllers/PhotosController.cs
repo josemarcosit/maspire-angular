@@ -5,6 +5,7 @@ using angular_vega.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace angular_vega.Controllers
 {
@@ -18,15 +19,19 @@ namespace angular_vega.Controllers
         private readonly IVehicleRepository _vehicleRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<SharedResources> _localizer;
+
         public PhotosController(IHostEnvironment host,
                                 IVehicleRepository vehicleRepository,
                                 IUnitOfWork unitOfWork,
-                                IMapper mapper)
+                                IMapper mapper,
+                                IStringLocalizer<SharedResources> localizer)
         {
             _host = host;
             _vehicleRepository = vehicleRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _localizer = localizer;
         }
 
         [HttpPost]
@@ -36,14 +41,14 @@ namespace angular_vega.Controllers
 
             if (vehicle == null) return NotFound();
 
-            if (file == null) return BadRequest("Null file");
+            if (file == null) return BadRequest(_localizer["NullFile"]);
 
-            if (file.Length == 0) return BadRequest("Empty file");
+            if (file.Length == 0) return BadRequest(_localizer["EmptyFile"]);
 
-            if (file.Length > MAX_BYTES) return BadRequest("Maximun file size exceeded");
+            if (file.Length > MAX_BYTES) return BadRequest(_localizer["FileMaxSizeExceeded"]);
 
             if (!ACCEPTED_FILE_TYPES.Any(p => p == Path.GetExtension(file.FileName)))          
-                return BadRequest("Invalid file type");            
+                return BadRequest(_localizer["InvalidFileType"]);            
 
             var uploadsFolderPtah = Path.Combine(_host.ContentRootPath, "uploads");
 

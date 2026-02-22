@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+  </resheader>
+  <data name="Greeting" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Login realizado com sucesso!</value>
+  </data>  <data name="FeatureFetchError" xml:space="preserve">
+    <value>Erro ao obter características</value>
+  </data>
+  <data name="FeatureNotFound" xml:space="preserve">
+    <value>Característica não encontrada</value>
+  </data>
+  <data name="IdMismatch" xml:space="preserve">
+    <value>ID não corresponde</value>
+  </data>
+  <data name="InvalidFileType" xml:space="preserve">
+    <value>Tipo de arquivo inválido</value>
+  </data>
+  <data name="FileMaxSizeExceeded" xml:space="preserve">
+    <value>Tamanho máximo de arquivo excedido</value>
+  </data>
+  <data name="EmptyFile" xml:space="preserve">
+    <value>Arquivo vazio</value>
+  </data>
+  <data name="NullFile" xml:space="preserve">
+    <value>Arquivo é obrigatório</value>
+  </data></root>

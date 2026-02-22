@@ -2,6 +2,8 @@ using angular_vega.Core;
 using angular_vega.Mapping;
 using angular_vega.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -10,7 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
 
 builder.Services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:Default"]));
 
@@ -66,6 +72,20 @@ builder.Services.AddControllers()
     });
 
 var app = builder.Build();
+
+// Configure supported cultures for localization
+var supportedCultures = new[] { "pt-BR", "en-US", "es" }
+    .Select(c => new CultureInfo(c))
+    .ToList();
+
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+};
+
+app.UseRequestLocalization(localizationOptions);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

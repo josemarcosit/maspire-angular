@@ -1,5 +1,6 @@
 using angular_vega.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace angular_vega.Controllers
 {   
@@ -8,12 +9,15 @@ namespace angular_vega.Controllers
     {
         private readonly IAuthService _authService;
         private readonly ITokenService _tokenService;
+        private readonly IStringLocalizer<SharedResources> _localizer;
 
         public AuthController(IAuthService authService,
-                              ITokenService tokenService)
+                              ITokenService tokenService,
+                              IStringLocalizer<SharedResources> localizer)
         {
             _authService = authService;
             _tokenService = tokenService;
+            _localizer = localizer;
         }
 
         [HttpPost("register")]
@@ -50,7 +54,7 @@ namespace angular_vega.Controllers
             return Ok(new AuthResult
             {
                 Success = true,
-                Message = "Login realizado com sucesso!",
+                Message = _localizer["LoginSuccess"],
                 Token = token,
                 User = new UserDto
                 {

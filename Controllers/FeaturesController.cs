@@ -3,6 +3,7 @@ using angular_vega.Core.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace angular_vega.Controllers
 {
@@ -13,15 +14,18 @@ namespace angular_vega.Controllers
         private readonly IFeatureRepository _featureRepository;
         private readonly ILogger<FeaturesController> _logger;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<SharedResources> _localizer;
 
         public FeaturesController(
             IFeatureRepository featureRepository,
             ILogger<FeaturesController> logger,
-            IMapper mapper)
+            IMapper mapper,
+            IStringLocalizer<SharedResources> localizer)
         {
             _featureRepository = featureRepository;
             _logger = logger;
             _mapper = mapper;
+            _localizer = localizer;
         }
      
         [HttpGet]
@@ -36,7 +40,7 @@ namespace angular_vega.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao obter características");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter características");
+                return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
        
@@ -49,14 +53,14 @@ namespace angular_vega.Controllers
                 var feature = await _featureRepository.GetFeatureByIdAsync(id);
                 if (feature == null)
                 {
-                    return NotFound("Característica não encontrada");
+                    return NotFound(_localizer["FeatureNotFound"]);
                 }
                 return Ok(feature);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao obter a característica com ID: {FeatureId}", id);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao obter a característica");
+                return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
         
@@ -77,7 +81,7 @@ namespace angular_vega.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao criar característica");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao criar característica");
+                return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
        
@@ -89,7 +93,7 @@ namespace angular_vega.Controllers
             {
                 if (id != feature.Id)
                 {
-                    return BadRequest("ID não corresponde");
+                    return BadRequest(_localizer["IdMismatch"]);
                 }
 
                 if (!ModelState.IsValid)
@@ -100,7 +104,7 @@ namespace angular_vega.Controllers
                 var existingFeature = await _featureRepository.GetFeatureByIdAsync(id);
                 if (existingFeature == null)
                 {
-                    return NotFound("Característica não encontrada");
+                    return NotFound(_localizer["FeatureNotFound"]);
                 }
 
                 await _featureRepository.UpdateFeatureAsync(feature);
@@ -109,7 +113,7 @@ namespace angular_vega.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao atualizar característica com ID: {FeatureId}", id);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao atualizar característica");
+                return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
       
@@ -122,7 +126,7 @@ namespace angular_vega.Controllers
                 var feature = await _featureRepository.GetFeatureByIdAsync(id);
                 if (feature == null)
                 {
-                    return NotFound("Característica não encontrada");
+                    return NotFound(_localizer["FeatureNotFound"]);
                 }
 
                 await _featureRepository.DeleteFeatureAsync(id);
@@ -131,7 +135,7 @@ namespace angular_vega.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao deletar característica com ID: {FeatureId}", id);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Erro ao deletar característica");
+                return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
     }
