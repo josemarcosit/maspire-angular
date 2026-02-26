@@ -9,7 +9,7 @@ namespace angular_vega.Controllers.Resources
         public KeyValuePairResource Make { get; set; }
         public bool IsRegistered { get; set; }
         public ContactResource Contact { get; set; }
-        public DateTime LasUpdate { get; set; }
+        public DateTime lastUpdate { get; set; }
         public ICollection<KeyValuePairResource> Features { get; set; }
         public VehicleResource()
         {

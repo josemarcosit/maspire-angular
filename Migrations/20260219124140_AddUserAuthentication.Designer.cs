@@ -178,7 +178,7 @@ namespace angular_vega.Migrations
                     b.Property<bool>("IsRegistered")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LasUpdate")
+                    b.Property<DateTime>("lastUpdate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ModelId")

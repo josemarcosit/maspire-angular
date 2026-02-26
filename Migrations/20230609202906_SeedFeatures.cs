@@ -4,33 +4,87 @@
 
 namespace angular_vega.Migrations
 {
-    /// <inheritdoc />
     public partial class SeedFeatures : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Feature1');");
-            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Feature2');");
-            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Feature3');");
+            // FEATURES (OffRoad Elétricos)
+            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Tração AWD');");
+            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Modo Off-Road');");
+            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Bateria de Longa Autonomia');");
+            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Suspensão Adaptativa');");
+            migrationBuilder.Sql("INSERT INTO Features (Name) VALUES('Proteção Inferior (Skid Plate)');");
 
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(1, (SELECT Id FROM Makes WHERE Name = 'Make1'));;");
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(2, (SELECT Id FROM Makes WHERE Name = 'Make1'));;");
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(3, (SELECT Id FROM Makes WHERE Name = 'Make1'));;");
+            // =========================
+            // BYD
+            // =========================
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Tração AWD'),
+                    (SELECT Id FROM Makes WHERE Name = 'BYD')
+                );
+            ");
 
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(1, (SELECT Id FROM Makes WHERE Name = 'Make2'));;");
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(2, (SELECT Id FROM Makes WHERE Name = 'Make2'));;");
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(3, (SELECT Id FROM Makes WHERE Name = 'Make2'));;");
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Modo Off-Road'),
+                    (SELECT Id FROM Makes WHERE Name = 'BYD')
+                );
+            ");
 
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(1, (SELECT Id FROM Makes WHERE Name = 'Make3'));;");
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(2, (SELECT Id FROM Makes WHERE Name = 'Make3'));;");
-            migrationBuilder.Sql("INSERT INTO FeatureMake(FeaturesId, MakeId)VALUES(3, (SELECT Id FROM Makes WHERE Name = 'Make3'));;");
+            // =========================
+            // RIVIAN
+            // =========================
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Tração AWD'),
+                    (SELECT Id FROM Makes WHERE Name = 'Rivian')
+                );
+            ");
+
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Suspensão Adaptativa'),
+                    (SELECT Id FROM Makes WHERE Name = 'Rivian')
+                );
+            ");
+
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Proteção Inferior (Skid Plate)'),
+                    (SELECT Id FROM Makes WHERE Name = 'Rivian')
+                );
+            ");
+
+            // =========================
+            // TESLA
+            // =========================
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Tração AWD'),
+                    (SELECT Id FROM Makes WHERE Name = 'Tesla')
+                );
+            ");
+
+            migrationBuilder.Sql(@"
+                INSERT INTO FeatureMake (FeaturesId, MakeId)
+                VALUES (
+                    (SELECT Id FROM Features WHERE Name = 'Bateria de Longa Autonomia'),
+                    (SELECT Id FROM Makes WHERE Name = 'Tesla')
+                );
+            ");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Features WHERE Name IN ('Feature1','Feature2','Feature3')");
+            migrationBuilder.Sql("DELETE FROM FeatureMake;");
+            migrationBuilder.Sql("DELETE FROM Features WHERE Name IN ('Tração AWD','Modo Off-Road','Bateria de Longa Autonomia','Suspensão Adaptativa','Proteção Inferior (Skid Plate)');");
         }
     }
 }

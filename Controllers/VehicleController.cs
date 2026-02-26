@@ -33,7 +33,7 @@ namespace angular_vega.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
-            vehicle.LasUpdate = DateTime.Now;
+            vehicle.LastUpdate = DateTime.Now;
 
             _vehicleRepository.Add(vehicle);
             await unitOfWork.CompleteAsync();
@@ -56,7 +56,7 @@ namespace angular_vega.Controllers
                 return NotFound();
             }
             mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
-            vehicle.LasUpdate = DateTime.Now;
+            vehicle.LastUpdate = DateTime.Now;
 
             await unitOfWork.CompleteAsync();
 

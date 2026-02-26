@@ -30,7 +30,7 @@ namespace angular_vega.Migrations
                     ContactName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ContactPhone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     ContactEmail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    LasUpdate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    lastUpdate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

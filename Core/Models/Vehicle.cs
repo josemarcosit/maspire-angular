@@ -23,7 +23,7 @@ namespace angular_vega.Core.Models
         [Required]
         [StringLength(255)]
         public string ContactEmail { get; set; }
-        public DateTime LasUpdate { get; set; }
+        public DateTime LastUpdate { get; set; }
         public ICollection<VehicleFeature> Features { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public Vehicle()
