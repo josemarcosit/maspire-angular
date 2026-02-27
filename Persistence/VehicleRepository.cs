@@ -1,7 +1,7 @@
-using System.Linq.Expressions;
 using angular_vega.Core.Models;
 using angular_vega.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace angular_vega.Persistence
 {
@@ -31,7 +31,7 @@ namespace angular_vega.Persistence
             .Include(v => v.Model)
             .Include(v => v.Model.Make)
             .SingleOrDefaultAsync(v => v.Id == id);
-    }
+        }
         public async Task<Vehicle> GetVehicleWithMake(int id)
         {
             return await vegaDbContext.Vehicles
@@ -63,7 +63,7 @@ namespace angular_vega.Persistence
             if (queryObj.SortBy == "model")
                 query = queryObj.IsSortAscending ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
 
-             if (queryObj.SortBy == "contactName")
+            if (queryObj.SortBy == "contactName")
                 query = queryObj.IsSortAscending ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
 
             if (queryObj.SortBy == "id")
@@ -73,11 +73,11 @@ namespace angular_vega.Persistence
             {
                 ["make"] = v => v.Model.Make.Name,
                 ["model"] = v => v.Model.Name,
-                ["contactName"] = v => v.ContactName              
+                ["contactName"] = v => v.ContactName
             };
 
             query = query.ApplyOrdering(queryObj, columnsMap);
-            
+
             query = query.ApplySorting(queryObj);
 
             return await query.ToListAsync();

@@ -13,16 +13,47 @@ namespace angular_vega.Persistence
             _context = context;
         }
 
-        public async Task<IEnumerable<Feature>> GetAllFeaturesAsync()
+        public async Task<IEnumerable<Feature>> GetAllFeaturesAsync(string language = null)
         {
+            if (string.IsNullOrWhiteSpace(language))
+            {
+                return await _context.Features
+                    .OrderBy(f => f.Name)
+                    .ToListAsync();
+            }
+
+            // project to translated name if available
             return await _context.Features
+                .Select(f => new Feature
+                {
+                    Id = f.Id,
+                    Name = f.Translations
+                             .Where(t => t.Language == language)
+                             .Select(t => t.Name)
+                             .FirstOrDefault() ?? f.Name
+                })
                 .OrderBy(f => f.Name)
                 .ToListAsync();
         }
 
-        public async Task<Feature> GetFeatureByIdAsync(int id)
+        public async Task<Feature> GetFeatureByIdAsync(int id, string language = null)
         {
-            return await _context.Features.FindAsync(id);
+            if (string.IsNullOrWhiteSpace(language))
+                return await _context.Features.FindAsync(id);
+
+            var feature = await _context.Features
+                .Where(f => f.Id == id)
+                .Select(f => new Feature
+                {
+                    Id = f.Id,
+                    Name = f.Translations
+                             .Where(t => t.Language == language)
+                             .Select(t => t.Name)
+                             .FirstOrDefault() ?? f.Name
+                })
+                .SingleOrDefaultAsync();
+
+            return feature;
         }
 
         public async Task AddFeatureAsync(Feature feature)

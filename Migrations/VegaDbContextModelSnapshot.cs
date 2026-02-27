@@ -45,6 +45,35 @@ namespace angular_vega.Migrations
                     b.ToTable("Features");
                 });
 
+            modelBuilder.Entity("angular_vega.Core.Models.FeatureTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FeatureId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeatureId", "Language")
+                        .IsUnique();
+
+                    b.ToTable("FeatureTranslations");
+                });
+
             modelBuilder.Entity("angular_vega.Core.Models.Make", b =>
                 {
                     b.Property<int>("Id")
@@ -175,7 +204,7 @@ namespace angular_vega.Migrations
                     b.Property<bool>("IsRegistered")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("lastUpdate")
+                    b.Property<DateTime>("LastUpdate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ModelId")
@@ -208,6 +237,17 @@ namespace angular_vega.Migrations
                     b.HasOne("angular_vega.Core.Models.Make", null)
                         .WithMany("Features")
                         .HasForeignKey("MakeId");
+                });
+
+            modelBuilder.Entity("angular_vega.Core.Models.FeatureTranslation", b =>
+                {
+                    b.HasOne("angular_vega.Core.Models.Feature", "Feature")
+                        .WithMany("Translations")
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Feature");
                 });
 
             modelBuilder.Entity("angular_vega.Core.Models.Model", b =>
@@ -256,6 +296,11 @@ namespace angular_vega.Migrations
                     b.Navigation("Feature");
 
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("angular_vega.Core.Models.Feature", b =>
+                {
+                    b.Navigation("Translations");
                 });
 
             modelBuilder.Entity("angular_vega.Core.Models.Make", b =>
