@@ -1,0 +1,57 @@
+/* ===== Pagination - Mars Automotive Theme ===== */
+
+.pagination {
+  gap: 0.5rem;
+}
+
+.page-item .page-link {
+  border-radius: 8px;
+  border: 1px solid #2a2a2a;
+  background-color: #111111; /* Deep black */
+  color: #C0C0C0; /* Silver */
+  font-weight: 500;
+  padding: 0.6rem 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.page-item .page-link:hover {
+  background-color: #9E2A2B; /* Mars red */
+  border-color: #9E2A2B;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(158, 42, 43, 0.3);
+}
+
+/* Active page */
+.page-item.active .page-link {
+  background-color: #9E2A2B; /* Mars red */
+  border-color: #9E2A2B;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 0 0.2rem rgba(158, 42, 43, 0.25);
+}
+
+/* Disabled state */
+.page-item.disabled .page-link {
+  background-color: #1f1f1f;
+  color: #555;
+  border-color: #2a2a2a;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Remove default Bootstrap focus */
+.page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(158, 42, 43, 0.35);
+  outline: none;
+}
+
+/* Smooth spacing on small screens */
+@media (max-width: 576px) {
+  .page-item .page-link {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.9rem;
+  }
+}

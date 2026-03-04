@@ -1,0 +1,129 @@
+/* ===== Global Page ===== */
+h1 {
+  color: #C0C0C0;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Cards ===== */
+.card {
+  background-color: #161616; /* Dark background */
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.card-header {
+  background: #2a2a2a;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+}
+
+.card-body {
+  color: #C0C0C0;
+  padding: 1.5rem;
+}
+
+/* ===== Tabs Styling ===== */
+.nav-tabs {
+  border-bottom: 2px solid #556B2F; /* moss green accent */
+}
+
+.nav-tabs .nav-link {
+  color: #C0C0C0;
+  background-color: #161616;
+  border: 1px solid transparent;
+  border-radius: 6px 6px 0 0;
+  margin-right: 0.2rem;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+
+.nav-tabs .nav-link.active {
+  color: #ffffff;
+  background-color: #2a2a2a;
+  border-color: #556B2F #556B2F #161616;
+}
+
+/* ===== Lists ===== */
+ul.list-unstyled li {
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background-color: #9E2A2B; /* Mars Red */
+  border-color: #9E2A2B;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #b73435;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(158,42,43,0.4);
+}
+
+.btn-danger {
+  background-color: #8B0000; /* dark red */
+  border-color: #8B0000;
+  font-weight: 500;
+}
+
+.btn-outline-secondary {
+  color: #C0C0C0;
+  border-color: #C0C0C0;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #556B2F; /* moss green hover */
+  border-color: #556B2F;
+  color: #ffffff;
+}
+
+/* ===== File Upload and Photos ===== */
+input[type="file"] {
+  background-color: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 0.4rem;
+}
+
+.img-thumbnail {
+  border-radius: 6px;
+  border: 1px solid #2a2a2a;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  .card-body {
+    padding: 1rem;
+  }
+  .nav-tabs .nav-link {
+    font-size: 0.9rem;
+  }
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+

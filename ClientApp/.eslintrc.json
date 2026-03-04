@@ -1,0 +1,83 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        /* TYPESCRIPT */
+
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/member-ordering": "off",
+
+        /* ORGANIZAÇÃO */
+
+        "@typescript-eslint/member-ordering": [
+          "warn",
+          {
+            "default": [
+              "private-static-field",
+              "public-static-field",
+              "protected-static-field",
+              
+              "private-instance-field",  
+              "public-instance-field",
+              "protected-instance-field",
+             
+
+              "constructor",
+
+              "public-method",
+              "protected-method",
+              "private-method"
+            ]
+          }
+        ],
+
+        /* ANGULAR */
+
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+
+        "@angular-eslint/no-empty-lifecycle-method": "warn",
+
+        /* BOAS PRÁTICAS */
+
+        "eqeqeq": ["error", "always"],
+        "curly": "error",
+        "no-console": ["warn", { "allow": ["warn", "error"] }]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}

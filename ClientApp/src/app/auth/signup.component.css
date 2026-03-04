@@ -1,0 +1,147 @@
+/* ===== Background ===== */
+
+body {
+  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+  min-height: 100vh;
+}
+
+/* ===== Card ===== */
+
+.card {
+  border: none;
+  border-radius: 12px;
+  background-color: #161616; /* Dark premium background */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* ===== Card Header ===== */
+
+.card-header {
+  background: linear-gradient(90deg, #556B2F, #3e4f22); /* Moss green gradient */
+  border-bottom: none;
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+/* ===== Card Body ===== */
+
+.card-body {
+  padding: 2rem;
+  color: #C0C0C0;
+}
+
+/* ===== Labels ===== */
+
+.form-label {
+  color: #aaaaaa;
+  font-weight: 500;
+}
+
+/* ===== Inputs ===== */
+
+.form-control {
+  background-color: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+  color: #666;
+}
+
+.form-control:focus {
+  background-color: #1f1f1f;
+  border-color: #556B2F; /* Moss green focus */
+  box-shadow: 0 0 0 0.2rem rgba(85, 107, 47, 0.3);
+  color: #ffffff;
+}
+
+/* ===== Validation ===== */
+
+.invalid-feedback {
+  color: #ff4d4f; /* Error red */
+  font-size: 0.85rem;
+}
+
+.is-invalid {
+  border-color: #ff4d4f;
+}
+
+/* Password mismatch highlight */
+.invalid-feedback.password-mismatch {
+  color: #ff4d4f;
+}
+
+/* ===== Button ===== */
+
+.btn-success {
+  background-color: #556B2F; /* Moss green */
+  border-color: #4a5d28;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #4a5d28;
+  border-color: #3e4f22;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(85, 107, 47, 0.4);
+}
+
+.btn-success:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #C2A27C; /* Sand Beige disabled */
+  border-color: #C2A27C;
+}
+
+/* ===== Divider ===== */
+
+hr {
+  border-top: 1px solid #2a2a2a;
+}
+
+/* ===== Links ===== */
+
+a {
+  color: #556B2F; /* Moss green */
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* ===== Icons ===== */
+
+.fa {
+  margin-right: 6px;
+}
+
+/* ===== Responsive adjustments ===== */
+
+@media (max-width: 576px) {
+  .form-control {
+    padding: 0.6rem;
+  }
+
+  .btn-success {
+    padding: 0.65rem;
+    font-size: 0.95rem;
+  }
+}

@@ -1,20 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+/* ====== Off-Road Earth Tone Theme ====== */
 
-/* Provide sufficient contrast against white background */
+/* Links */
 a {
-  color: #0366d6;
+  color: #6B4F3A; /* Earth Brown */
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+a:hover {
+  color: #A0522D; /* Rust */
+  text-decoration: underline;
 }
 
+/* Accessible focus styles */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem #F5F5F5,
+              0 0 0 0.25rem #556B2F; /* Moss Green focus ring */
+  border-color: #556B2F;
+}
+
+/* Inline code styling */
 code {
-  color: #e01a76;
+  color: #A0522D; /* Rust */
+  background-color: #f4f1ed;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
+
+/* ====== Primary Button (Main Brand Color) ====== */
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: #6B4F3A; /* Earth Brown */
+  border-color: #5a3f2d;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+  background-color: #5a3f2d;
+  border-color: #4a3324;
+}
+
+.btn-primary:active {
+  background-color: #4a3324;
+  border-color: #3d2a1d;
+}
+
+.btn-primary:disabled {
+  background-color: #C2A27C; /* Sand Beige */
+  border-color: #C2A27C;
+}
+
+/* ====== Secondary Button ====== */
+
+.btn-secondary {
+  color: #fff;
+  background-color: #556B2F; /* Moss Green */
+  border-color: #4a5d28;
+}
+
+.btn-secondary:hover {
+  background-color: #4a5d28;
+  border-color: #3e4f22;
+}
+
+/* Form inputs */
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #d6c7b8; /* Light sand border */
+}
+
+.form-control:focus {
+  background-color: #fff;
+}
+
+/* Optional navbar styling */
+.navbar {
+  background-color: #1C1C1C; /* Onyx Black */
+}
+
+.navbar .nav-link {
+  color: #C2A27C; /* Sand Beige */
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff;
 }

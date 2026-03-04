@@ -1,0 +1,137 @@
+/* ===== Page Title ===== */
+h1 {
+  color: #C0C0C0; /* Silver for readability */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Primary Add Button ===== */
+.btn-primary {
+  background-color: #9E2A2B; /* Mars Red */
+  border-color: #9E2A2B;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #b73435; /* Slightly brighter red on hover */
+  border-color: #b73435;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(158, 42, 43, 0.4);
+}
+
+/* ===== Secondary Reset Button ===== */
+.btn-secondary {
+  background-color: #556B2F; /* Moss Green */
+  border-color: #4a5d28;
+  color: #ffffff;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #4a5d28; /* Darker green on hover */
+  border-color: #3e4f22;
+  transform: translateY(-1px);
+}
+
+/* ===== Filter Card ===== */
+.card {
+  border-radius: 12px;
+  background-color: #161616; /* Dark premium background */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.card-body {
+  color: #C0C0C0; /* Light text inside card */
+}
+
+/* ===== Form Labels & Select ===== */
+.form-label {
+  color: #aaaaaa; /* Lighter text for labels */
+  font-weight: 500;
+}
+
+.form-select {
+  background-color: #1f1f1f; /* Dark input background */
+  border: 1px solid #2a2a2a;
+  color: #ffffff; /* White text */
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.form-select:focus {
+  border-color: #556B2F; /* Moss Green focus */
+  box-shadow: 0 0 0 0.2rem rgba(85, 107, 47, 0.3);
+  outline: none;
+  color: #ffffff;
+}
+
+/* ===== Table Styling ===== */
+.table {
+  color: #C0C0C0; /* Text color */
+  background-color: #161616; /* Match card background */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ===== Table Header ===== */
+.table thead {
+  background-color: #2a2a2a !important; /* Dark header */
+  color: #ffffff !important; /* White text for readability */
+  border-bottom: 2px solid #556B2F; /* Subtle green accent line */
+}
+
+.table thead th {
+  font-weight: 600;
+  cursor: pointer; /* Indicate sortable columns */
+  vertical-align: middle;
+  padding: 0.75rem 1rem;
+}
+
+/* ===== Table Body Hover ===== */
+.table-hover tbody tr:hover {
+  background-color: #1f1f1f; /* Slightly lighter on hover */
+}
+
+/* ===== Buttons in Table ===== */
+.table td a.btn-outline-primary {
+  color: #9E2A2B; /* Mars Red */
+  border-color: #9E2A2B;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.table td a.btn-outline-primary:hover {
+  background-color: #9E2A2B; /* Fill button on hover */
+  color: #ffffff;
+  border-color: #9E2A2B;
+}
+
+/* ===== Pagination ===== */
+app-pagination {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
