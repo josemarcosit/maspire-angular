@@ -1,7 +1,7 @@
-import { Model } from "./model";
+import { Model } from './model';
 
-export interface Make{
+export interface Make {
   id: number;
-  name: string,
-  models: Model[]
+  name: string;
+  models: Model[];
 }

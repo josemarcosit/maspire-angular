@@ -3,12 +3,12 @@ export interface KeyValuePair {
   name: string;
 }
 
-export interface Contact{
+export interface Contact {
   name: string;
   phone: string;
   email: string;
 }
-export interface Vehicle{
+export interface Vehicle {
   id: number;
   model: KeyValuePair;
   make: KeyValuePair;
@@ -17,7 +17,7 @@ export interface Vehicle{
   contact: Contact;
   lastUpdate: string;
 }
-export interface SaveVehicle{
+export interface SaveVehicle {
   id: number;
   modelId: number;
   makeId: number;
@@ -25,4 +25,3 @@ export interface SaveVehicle{
   features: number[];
   contact: Contact;
 }
-

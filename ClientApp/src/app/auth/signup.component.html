@@ -1,0 +1,109 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h3 class="card-title mb-0">
+            <i class="fa fa-user-plus"></i> {{ 'auth.createAccount' | translate }}
+          </h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <!-- Full Name -->
+            <div class="form-group mb-3">
+              <label for="fullName" class="form-label">{{ 'auth.fullName' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                formControlName="fullName"
+                placeholder="{{ 'auth.fullNamePlaceholder' | translate }}"
+                [class.is-invalid]="submitted && f['fullName'].errors"
+              />
+              <div class="invalid-feedback" *ngIf="submitted && f['fullName'].errors">
+                <div *ngIf="f['fullName'].errors['required']">{{ 'auth.fullNameRequired' | translate }}</div>
+                <div *ngIf="f['fullName'].errors['minlength']">{{ 'auth.fullNameMinlength' | translate }}</div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group mb-3">
+              <label for="email" class="form-label">{{ 'auth.email' | translate }}</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="{{ 'auth.emailPlaceholder' | translate }}"
+                [class.is-invalid]="submitted && f['email'].errors"
+              />
+              <div class="invalid-feedback" *ngIf="submitted && f['email'].errors">
+                <div *ngIf="f['email'].errors['required']">{{ 'auth.emailRequired' | translate }}</div>
+                <div *ngIf="f['email'].errors['email']">{{ 'auth.emailInvalid' | translate }}</div>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mb-3">
+              <label for="password" class="form-label">{{ 'auth.password' | translate }}</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                placeholder="{{ 'auth.passwordPlaceholder' | translate }}"
+                [class.is-invalid]="submitted && f['password'].errors"
+              />
+              <div class="invalid-feedback" *ngIf="submitted && f['password'].errors">
+                <div *ngIf="f['password'].errors['required']">{{ 'auth.passwordRequired' | translate }}</div>
+                <div *ngIf="f['password'].errors['minlength']">{{ 'auth.passwordMinlength' | translate }}</div>
+              </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group mb-3">
+              <label for="confirmPassword" class="form-label">{{ 'auth.confirmPassword' | translate }}</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                placeholder="{{ 'auth.confirmPasswordPlaceholder' | translate }}"
+                [class.is-invalid]="submitted && (f['confirmPassword'].errors || form.errors?.['passwordMismatch'])"
+              />
+              <div class="invalid-feedback" *ngIf="submitted && f['confirmPassword'].errors">
+                <div *ngIf="f['confirmPassword'].errors['required']">{{ 'auth.confirmPasswordRequired' | translate }}</div>
+              </div>
+              <div class="invalid-feedback" *ngIf="submitted && form.errors?.['passwordMismatch']">
+                Senhas não coincidem
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="loading"
+              >
+                <span *ngIf="!loading">
+                  <i class="fa fa-check"></i> {{ 'auth.createAccount' | translate }}
+                </span>
+                <span *ngIf="loading">
+                  <i class="fa fa-spinner fa-spin"></i> {{ 'auth.wait' | translate }}
+                </span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Login Link -->
+          <hr />
+          <p class="text-center mb-0">
+            {{ 'auth.haveAccount' | translate }}
+            <a routerLink="/login">{{ 'auth.loginLink' | translate }}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

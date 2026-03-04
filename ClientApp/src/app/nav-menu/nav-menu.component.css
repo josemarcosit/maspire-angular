@@ -1,18 +1,53 @@
+/* ====== Navbar - Off-Road Earth Theme ====== */
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
-  word-break: break-all;
+  word-break: break-word;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #C2A27C; /* Sand Beige */
+  text-transform: uppercase;
 }
 
+a.navbar-brand:hover {
+  color: #ffffff;
+}
+
+/* Navbar background */
+.navbar {
+  background-color: #1C1C1C; /* Onyx Black */
+  border-bottom: 3px solid #6B4F3A; /* Earth Brown accent */
+}
+
+/* Nav links */
+.navbar .nav-link {
+  color: #C2A27C; /* Sand Beige */
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff;
+}
+
+.navbar .nav-link.active {
+  color: #ffffff;
+  border-bottom: 2px solid #556B2F; /* Moss Green indicator */
+}
+
+/* Responsive typography */
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
 
+/* Shadow utility refined */
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
 }

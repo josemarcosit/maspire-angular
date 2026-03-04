@@ -1,6 +1,4 @@
-import { Make } from "./make";
-
-export interface Model{
+export interface Model {
   id: number;
-  name: string
+  name: string;
 }
