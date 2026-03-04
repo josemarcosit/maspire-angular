@@ -27,30 +27,30 @@ namespace maspire_angular.Infrastructure.Persistence.Repository
 
             return await maspireDbContext.Vehicles
                 .Include(v => v.Photos)
-            .Include(v => v.Features)
-            .ThenInclude(vf => vf.Feature)
-            .Include(v => v.Model)
-            .Include(v => v.Model.Make)
-            .SingleOrDefaultAsync(v => v.Id == id);
+                .Include(v => v.Features)
+                .ThenInclude(vf => vf.Feature)
+                .Include(v => v.Model)
+                .Include(v => v.Model.Make)
+                .SingleOrDefaultAsync(v => v.Id == id);
         }
         public async Task<Vehicle> GetVehicleWithMake(int id)
         {
             return await maspireDbContext.Vehicles
-             .Include(v => v.Features)
-             .ThenInclude(vf => vf.Feature)
-             .Include(v => v.Model)
-             .Include(v => v.Model.Make)
-             .SingleOrDefaultAsync(v => v.Id == id);
+                 .Include(v => v.Features)
+                 .ThenInclude(vf => vf.Feature)
+                 .Include(v => v.Model)
+                 .Include(v => v.Model.Make)
+                 .SingleOrDefaultAsync(v => v.Id == id);
         }
 
         public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery queryObj)
         {
             var query = maspireDbContext.Vehicles
-             .Include(v => v.Model)
-             .ThenInclude(m => m.Make)
-             .Include(v => v.Features)
-             .ThenInclude(vf => vf.Feature)
-             .AsQueryable();
+                 .Include(v => v.Model)
+                 .ThenInclude(m => m.Make)
+                 .Include(v => v.Features)
+                 .ThenInclude(vf => vf.Feature)
+                 .AsQueryable();
 
             if (queryObj.MakeId.HasValue)
                 query = query.Where(v => v.Model.MakeId == queryObj.MakeId);

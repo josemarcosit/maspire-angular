@@ -1,6 +1,8 @@
 using maspire_angular.Infrastructure.Persistence;
 using maspire_angular.Shared.Abstractions;
+using maspire_angular.Shared.Resources;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -8,35 +10,36 @@ namespace maspire_angular.Features.Auth
 {
     public class AuthService : IAuthService
     {
-        private readonly MaspireDbContext _context;
+        private readonly MaspireDbContext _context;        
+        private readonly IStringLocalizer<SharedResources> _localizer;
         private readonly IUnitOfWork _unitOfWork;
-
-        public AuthService(MaspireDbContext context, IUnitOfWork unitOfWork)
+        public AuthService(MaspireDbContext context,
+            IUnitOfWork unitOfWork,
+            IStringLocalizer<SharedResources> localizer)
         {
             _context = context;
             _unitOfWork = unitOfWork;
+            _localizer = localizer;
         }
 
         public async Task<AuthResult> RegisterAsync(string email, string fullName, string password)
-        {
-            // Validar se usuário já existe
+        {            
             var existingUser = await GetUserByEmailAsync(email);
             if (existingUser != null)
             {
                 return new AuthResult
                 {
                     Success = false,
-                    Message = "Usuário com este email já existe."
+                    Message = _localizer["UserAlreadyExists"],
                 };
             }
-
-            // Validar senha
+            
             if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
             {
                 return new AuthResult
                 {
                     Success = false,
-                    Message = "Senha deve ter no mínimo 6 caracteres."
+                    Message = _localizer["PasswordMinLength"]
                 };
             }
 
@@ -58,7 +61,7 @@ namespace maspire_angular.Features.Auth
                 return new AuthResult
                 {
                     Success = true,
-                    Message = "Usuário registrado com sucesso!",
+                    Message = _localizer["UserRegisteredSuccess"],
                     User = new UserDto
                     {
                         Id = user.Id,
@@ -73,7 +76,7 @@ namespace maspire_angular.Features.Auth
                 return new AuthResult
                 {
                     Success = false,
-                    Message = $"Erro ao registrar usuário: {ex.Message}"
+                    Message = String.Format(_localizer["UserRegisteredSuccess"], ex.Message)
                 };
             }
         }
@@ -89,7 +92,7 @@ namespace maspire_angular.Features.Auth
                     return new AuthResult
                     {
                         Success = false,
-                        Message = "Email ou senha inválidos."
+                        Message = _localizer["InvalidCredentials"]
                     };
                 }
 
@@ -101,7 +104,7 @@ namespace maspire_angular.Features.Auth
                 return new AuthResult
                 {
                     Success = true,
-                    Message = "Login realizado com sucesso!",
+                    Message = _localizer["LoginSuccess"],
                     User = new UserDto
                     {
                         Id = user.Id,
@@ -116,7 +119,7 @@ namespace maspire_angular.Features.Auth
                 return new AuthResult
                 {
                     Success = false,
-                    Message = $"Erro ao fazer login: {ex.Message}"
+                    Message = String.Format(_localizer["LoginError"], ex.Message)
                 };
             }
         }

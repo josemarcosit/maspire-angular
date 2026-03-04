@@ -2,7 +2,7 @@ using maspire_angular.Features.Make;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace maspire_angular.Core.Models
+namespace maspire_angular.Core.Model
 {
     [Table("Models")]
     public class Model

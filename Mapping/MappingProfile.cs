@@ -1,5 +1,5 @@
 using AutoMapper;
-using maspire_angular.Core.Models;
+using maspire_angular.Core.Model;
 using maspire_angular.Features.Feature;
 using maspire_angular.Features.Make;
 using maspire_angular.Features.Photo;

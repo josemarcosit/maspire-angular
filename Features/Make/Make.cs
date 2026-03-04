@@ -1,4 +1,4 @@
-using maspire_angular.Core.Models;
+using maspire_angular.Core.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
