@@ -1,10 +1,9 @@
 using angular_vega.Controllers.Resources;
+using angular_vega.Core;
 using angular_vega.Core.Models;
-using angular_vega.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace angular_vega.Controllers
 {
@@ -13,32 +12,23 @@ namespace angular_vega.Controllers
     public class MakesController : Controller
     {
         private readonly ILogger<MakesController> _logger;
-        private readonly VegaDbContext vegaDbContext;
+        private readonly IMakeRepository _makeRepository;
         private readonly IMapper mapper;
-
-        public MakesController(ILogger<MakesController> logger,
-                               VegaDbContext vegaDbContext,
-                               IMapper mapper)
+        public MakesController(ILogger<MakesController> logger,                               
+                               IMapper mapper,
+                               IMakeRepository makeRepository)
         {
-            _logger = logger;
-            this.vegaDbContext = vegaDbContext;
+            _logger = logger;            
             this.mapper = mapper;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            _makeRepository = makeRepository;
         }
 
         [HttpGet("/api/makes")]
-        public async Task<IEnumerable<MakeResource>> GetMakes()
+        public async Task<IActionResult> GetMakes()
         {
+            var makes = await _makeRepository.GetAllMakesAsync();
 
-            var makes = await vegaDbContext.Makes
-                .Include(m => m.Models)
-                .ToListAsync();
-
-            return mapper.Map<List<Make>, List<MakeResource>>(makes);
+            return Ok(mapper.Map<IEnumerable<Make>, IEnumerable<MakeResource>>(makes));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
