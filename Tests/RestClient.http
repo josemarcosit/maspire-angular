@@ -6,6 +6,9 @@ GET https://localhost:7257/api/makes
 # @name Features
 GET https://localhost:7257/api/vehicle/features
 
+# @name Features in english
+GET https://localhost:7257/api/vehicle/features?lang=en-US
+
 ###
 # @name Vehicle
 GET https://localhost:7257/api/vehicles/14
