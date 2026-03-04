@@ -1,11 +1,13 @@
 using angular_vega.Core;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 using angular_vega.Mapping;
 using angular_vega.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
-using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,17 +51,17 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", policy =>
-    {
-        policy.AllowAnyHeader()
-        .AllowAnyMethod()
-        .WithOrigins("https://localhost:44466");
-
-    });
+   options.AddPolicy("CorsPolicy", policy =>
+   {
+      policy.AllowAnyOrigin()
+          .AllowAnyHeader()
+          .AllowAnyMethod();          
+   });
 });
 
 // Register services
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -96,7 +98,16 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
-app.UseStaticFiles();
+
+app.UseStaticFiles(); // wwwroot
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "uploads")),
+    RequestPath = "/uploads"
+});
+
 app.UseRouting();
 
 // Add authentication and authorization middlewares
