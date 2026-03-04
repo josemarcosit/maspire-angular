@@ -11,9 +11,11 @@ namespace angular_vega.Controllers.Resources
         public ContactResource Contact { get; set; }
         public DateTime lastUpdate { get; set; }
         public ICollection<KeyValuePairResource> Features { get; set; }
+        public ICollection<PhotoResource> Photos { get; set; }
         public VehicleResource()
         {
             Features = new Collection<KeyValuePairResource>();
+            Photos = new Collection<PhotoResource>();
         }
     }
 }

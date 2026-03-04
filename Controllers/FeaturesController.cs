@@ -1,3 +1,4 @@
+using System.Globalization;
 using angular_vega.Core;
 using angular_vega.Core.Models;
 using AutoMapper;
@@ -7,7 +8,7 @@ using Microsoft.Extensions.Localization;
 
 namespace angular_vega.Controllers
 {
-    [Route("api/[controller]")]   
+    [Route("api/[controller]")]
     [Authorize]
     public class FeaturesController : Controller
     {
@@ -27,14 +28,15 @@ namespace angular_vega.Controllers
             _mapper = mapper;
             _localizer = localizer;
         }
-     
+
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Feature>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetFeatures()
+        public async Task<IActionResult> GetFeatures([FromQuery(Name = "lang")] string language)
         {
             try
             {
-                var features = await _featureRepository.GetAllFeaturesAsync();
+                language = string.IsNullOrWhiteSpace(language) ? CultureInfo.CurrentUICulture.Name : language;
+                var features = await _featureRepository.GetAllFeaturesAsync(language);
                 return Ok(features);
             }
             catch (Exception ex)
@@ -43,14 +45,15 @@ namespace angular_vega.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
-       
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Feature), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetFeature(int id)
+        public async Task<IActionResult> GetFeature(int id, [FromQuery(Name = "lang")] string language)
         {
             try
             {
-                var feature = await _featureRepository.GetFeatureByIdAsync(id);
+                language = string.IsNullOrWhiteSpace(language) ? CultureInfo.CurrentUICulture.Name : language;
+                var feature = await _featureRepository.GetFeatureByIdAsync(id, language);
                 if (feature == null)
                 {
                     return NotFound(_localizer["FeatureNotFound"]);
@@ -63,7 +66,7 @@ namespace angular_vega.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
-        
+
         [HttpPost]
         [ProducesResponseType(typeof(Feature), StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateFeature([FromBody] Feature feature)
@@ -84,7 +87,7 @@ namespace angular_vega.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
-       
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Feature), StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateFeature(int id, [FromBody] Feature feature)
@@ -116,7 +119,7 @@ namespace angular_vega.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, _localizer["FeatureFetchError"]);
             }
         }
-      
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteFeature(int id)

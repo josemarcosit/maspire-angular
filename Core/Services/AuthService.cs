@@ -1,8 +1,8 @@
-using System.Security.Cryptography;
-using System.Text;
 using angular_vega.Core.Models;
 using angular_vega.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace angular_vega.Core
 {

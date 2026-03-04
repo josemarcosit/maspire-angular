@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
 namespace angular_vega.Controllers
-{   
+{
     [Route("api/[controller]")]
     public class AuthController : Controller
     {

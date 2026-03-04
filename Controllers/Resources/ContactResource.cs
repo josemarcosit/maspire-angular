@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace angular_vega.Controllers.Resources
 {
- public class ContactResource
+    public class ContactResource
     {
         [Required]
         [StringLength(255)]

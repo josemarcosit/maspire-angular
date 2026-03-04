@@ -26,6 +26,7 @@ namespace angular_vega.Persistence
                 return await vegaDbContext.Vehicles.FindAsync(id);
 
             return await vegaDbContext.Vehicles
+                .Include(v => v.Photos)
             .Include(v => v.Features)
             .ThenInclude(vf => vf.Feature)
             .Include(v => v.Model)

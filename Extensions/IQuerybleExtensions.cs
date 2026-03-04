@@ -11,8 +11,8 @@ namespace angular_vega.Extensions
 
             if (queryObj.IsSortAscending)
                 return query.OrderBy(columnsMap[queryObj.SortBy]);
-            
-            return query.OrderByDescending(columnsMap[queryObj.SortBy]);            
+
+            return query.OrderByDescending(columnsMap[queryObj.SortBy]);
         }
 
         public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, IQueryObject queryObj)

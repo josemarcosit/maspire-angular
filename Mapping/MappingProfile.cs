@@ -13,26 +13,33 @@ namespace angular_vega.Mapping
             CreateMap<Make, MakeResource>();
             CreateMap<Make, KeyValuePairResource>();
             CreateMap<Model, KeyValuePairResource>();
-            
+
             CreateMap<Vehicle, SaveVehicleResource>()
-            .ForMember(v => v.Contact, opt => opt.MapFrom(v => 
-                                            new ContactResource { 
+            .ForMember(v => v.Contact, opt => opt.MapFrom(v =>
+                                            new ContactResource
+                                            {
                                                 Name = v.ContactName,
                                                 Phone = v.ContactPhone,
-                                                Email = v.ContactEmail }))
+                                                Email = v.ContactEmail
+                                            }))
             .ForMember(v => v.Features, opt => opt.MapFrom(v => v.Features.Select(vf => vf.FeatureId)));
-            
+
             CreateMap<Vehicle, VehicleResource>()
                 .ForMember(v => v.Make, opt => opt.MapFrom(v => v.Model.Make))
-                .ForMember(v => v.Contact, opt => opt.MapFrom(v => 
-                                                    new ContactResource { 
+                .ForMember(v => v.Contact, opt => opt.MapFrom(v =>
+                                                    new ContactResource
+                                                    {
                                                         Name = v.ContactName,
-                                                        Phone = v.ContactPhone, 
-                                                        Email = v.ContactEmail }))
-                .ForMember(v => v.Features, opt => opt.MapFrom(v => 
-                                                    v.Features.Select(vf => new KeyValuePairResource { 
-                                                        Id = vf.Feature.Id, 
-                                                        Name = vf.Feature.Name })));
+                                                        Phone = v.ContactPhone,
+                                                        Email = v.ContactEmail
+                                                    }))
+                .ForMember(v => v.Features, opt => opt.MapFrom(v =>
+                                                    v.Features.Select(vf => new KeyValuePairResource
+                                                    {
+                                                        Id = vf.Feature.Id,
+                                                        Name = vf.Feature.Name
+                                                    })))
+                .ForMember(v => v.Photos, opt => opt.MapFrom(v => v.Photos));
 
             //API Resource to Domain
             CreateMap<VehicleQueryResource, VehicleQuery>();
@@ -44,15 +51,15 @@ namespace angular_vega.Mapping
              .ForMember(v => v.Features, opt => opt.Ignore())
              .AfterMap((vr, v) =>
              {
-                var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));
-                foreach (var f in removedFeatures)
-                    v.Features.Remove(f);
+                 var removedFeatures = v.Features.Where(f => !vr.Features.Contains(f.FeatureId));
+                 foreach (var f in removedFeatures)
+                     v.Features.Remove(f);
 
-                var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id)).Select(id => 
-                                                                            new VehicleFeature { FeatureId = id });
-                foreach (var f in addedFeatures)
-                    v.Features.Add(f);
-            });
+                 var addedFeatures = vr.Features.Where(id => !v.Features.Any(f => f.FeatureId == id)).Select(id =>
+                                                                             new VehicleFeature { FeatureId = id });
+                 foreach (var f in addedFeatures)
+                     v.Features.Add(f);
+             });
         }
     }
 }

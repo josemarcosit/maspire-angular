@@ -1,8 +1,8 @@
+using angular_vega.Core.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using angular_vega.Core.Models;
-using Microsoft.IdentityModel.Tokens;
 
 namespace angular_vega.Core
 {
