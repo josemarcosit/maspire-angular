@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VehicleService } from 'src/app/services/vehicle.service';
+import { LanguageService } from 'src/app/services/language.service';
 import { Make } from 'src/app/shared/models/make';
 import { Model } from 'src/app/shared/models/model';
 import { Vehicle } from 'src/app/shared/models/vehicle';
@@ -7,55 +8,66 @@ import { Vehicle } from 'src/app/shared/models/vehicle';
 @Component({
   selector: 'app-vehicle',
   templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.css']
+  styleUrls: ['./vehicle.component.css'],
 })
 export class VehicleComponent implements OnInit {
-
   vehicles: Vehicle[] = [];
   makes: Make[] = [];
   models: Model[] = [];
   query: any = {
-    pageSize: 3
+    pageSize: 3,
   };
 
-  constructor(private vehicleService: VehicleService) { }
+  constructor(
+    private vehicleService: VehicleService,
+    private languageService: LanguageService,
+  ) {}
 
   ngOnInit(): void {
-    this.vehicleService.getMakes().subscribe(data => {
+    this.vehicleService.getMakes().subscribe((data) => {
       this.makes = data;
     });
 
     this.populateVehicles();
+
+    // whenever language changes, re‑run queries so Accept-Language is sent again
+    this.languageService.currentLanguage$.subscribe(() => {
+      this.populateVehicles();
+      // also refresh makes since those labels may come from server/localized
+      this.vehicleService.getMakes().subscribe((data) => (this.makes = data));
+    });
   }
 
-  private populateVehicles(){
-    this.vehicleService.getVehicles(this.query).subscribe(vehicles => {
+  private populateVehicles() {
+    this.vehicleService.getVehicles(this.query).subscribe((vehicles) => {
       this.vehicles = vehicles;
     });
   }
 
-  onFilterChange(){
+  onFilterChange() {
     this.query.modelId = 20;
     this.populateVehicles();
   }
-  resetFilter(){
-    this.query ={};
+  resetFilter() {
+    this.query = {};
     this.onFilterChange();
   }
 
-  sortBy(columnName: string){
-    if(this.query.sortBy == columnName){
+  sortBy(columnName: string) {
+    if (this.query.sortBy === columnName) {
       this.query.isSortAscending = !this.query.isSortAscending;
-    }
-    else{
+    } else {
       this.query.sortBy = columnName;
       this.query.isSortAscending = true;
     }
     this.populateVehicles();
   }
 
-  onPageChange($event: number) {
-    this.query.page = $event;
+  // template compiler reports $event as Event so we accept any and coerce
+  onPageChange($event: any) {
+    // Pagination emits a number; if something else slips through just coerce.
+    const pageNumber: number = typeof $event === 'number' ? $event : Number($event);
+    this.query.page = pageNumber;
     this.populateVehicles();
-    }
+  }
 }

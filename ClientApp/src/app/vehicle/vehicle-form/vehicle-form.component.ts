@@ -2,14 +2,14 @@ import * as _ from 'underscore';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import { VehicleService } from 'src/app/services/vehicle.service';
 import { SaveVehicle, Vehicle } from 'src/app/shared/models/vehicle';
 
 @Component({
   selector: 'app-vehicle-form',
   templateUrl: './vehicle-form.component.html',
-  styleUrls: ['./vehicle-form.component.css']
+  styleUrls: ['./vehicle-form.component.css'],
 })
 export class VehicleFormComponent implements OnInit {
   makes: any[] = [];
@@ -23,93 +23,102 @@ export class VehicleFormComponent implements OnInit {
     contact: {
       name: '',
       phone: '',
-      email: ''
-    }
+      email: '',
+    },
   };
   features: any[] = [];
 
-  constructor(private route: ActivatedRoute,
-    private router: Router, 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private vehicleService: VehicleService,
-    private toaster: ToastrService) {
-
-    route.params.subscribe(p=>{
+    private toaster: ToastrService,
+  ) {
+    route.params.subscribe((p) => {
       this.vehicle.id = +p['id'];
     });
   }
-  ngOnInit(): void {
+ ngOnInit(): void {
+    this.vehicle.id = +this.route.snapshot.paramMap.get('id')! || 0;
 
-    var sources =[
+  let fork$: Observable<[any[], any[], Vehicle?]>;
+
+  if (this.vehicle.id) {
+    fork$ = forkJoin([
       this.vehicleService.getMakes(),
       this.vehicleService.getFeatures(),
-    ];
-
-    if(this.vehicle.id){
-      sources.push(this.vehicleService.getVehicle(this.vehicle.id))
-    }
-
-    forkJoin(sources).subscribe(data => {
-      this.makes = data[0];
-      this.features = data[1];
-      if(this.vehicle.id){
-        this.setVehicle(data[2]);
-        this.populateModels();
-      }
-    }, err =>{
-      if(err.status == 404)
-        this.router.navigate(['/home'])
-    })
+      this.vehicleService.getVehicle(this.vehicle.id)
+    ]) as Observable<[any[], any[], Vehicle]>;
+  } else {
+    fork$ = forkJoin([
+      this.vehicleService.getMakes(),
+      this.vehicleService.getFeatures()
+    ]) as Observable<[any[], any[]]>;
   }
 
-  setVehicle(v: any){
+  fork$.subscribe((data) => {
+    this.makes = data[0];
+    this.features = data[1];
+
+    if (this.vehicle.id) {
+      const vehicle = data[2];
+      this.setVehicle(vehicle);
+      this.populateModels();
+    }
+  });
+}
+
+  setVehicle(v: any) {
+    console.log(v);
     this.vehicle.id = v.id;
     this.vehicle.makeId = v.make.id;
     this.vehicle.modelId = v.model.id;
     this.vehicle.isRegistered = v.isRegistered;
     this.vehicle.contact = v.contact;
-    this.vehicle.features = _.pluck(v.features,'id');
+    this.vehicle.features = _.pluck(v.features, 'id');
   }
 
-  onMakeChange(){
-   this.populateModels();
+  onMakeChange() {
+    this.populateModels();
     this.vehicle.modelId = 0;
   }
 
-  populateModels(){
-    var selectedMake = this.makes.find(m => m.id == this.vehicle.makeId);
-    this.models = selectedMake? selectedMake.models : [];
+  populateModels() {
+    let selectedMake = this.makes.find((m) => m.id == this.vehicle.makeId);
+    this.models = selectedMake ? selectedMake.models : [];
   }
 
-  onFeatureToggle(featureId: number,event: any){
-    if(event.target.checked){
+  onFeatureToggle(featureId: number, event: any) {
+    if (event.target.checked) {
       this.vehicle.features.push(featureId);
-    }else{
-      var index = this.vehicle.features.indexOf(featureId);
-      this.vehicle.features.splice(index,1);
+    } else {
+      const index = this.vehicle.features.indexOf(featureId);
+      this.vehicle.features.splice(index, 1);
     }
   }
 
-  submit(){
-
-    if(this.vehicle.id){
-      this.vehicleService.update(this.vehicle).subscribe( x=>
-        this.toaster.success("Success","This vehicle was sucessfully updated.")
-        );
+  submit() {
+    if (this.vehicle.id) {
+      // Atualizar registro existente
+      this.vehicleService.update(this.vehicle)
+        .subscribe(() => {
+          this.toaster.success('Success', 'This vehicle was successfully updated.');
+          // Opcional: redirecionar ou atualizar view
+          this.router.navigate(['/vehicles', this.vehicle.id]);
+        });
+    } else {
+      // Criar novo registro
+      this.vehicleService.create(this.vehicle)
+        .subscribe(() => {
+          this.toaster.success('Success', 'Vehicle successfully created.');
+          this.router.navigate(['/vehicles']); // ou para a listagem
+        });
     }
-    this.vehicleService.create(this.vehicle).subscribe(
-      x => {
-        console.log(x);
-        this.toaster.success("Success", "Vehicle sucessfully created.");
-      }
-    );
   }
 
-  delete(){
-
-    if(confirm("Are you sure?")){
-      this.vehicleService.delete(this.vehicle.id).subscribe( x=>
-        this.router.navigate(['/home'])
-        );
+  delete() {
+    if (confirm('Are you sure?')) {
+      this.vehicleService.delete(this.vehicle?.id).subscribe(() => this.router.navigate(['/home']));
     }
   }
 }

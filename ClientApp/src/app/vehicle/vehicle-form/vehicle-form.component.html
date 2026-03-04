@@ -1,190 +1,170 @@
-<h1 class="mb-4">New Vehicle</h1>
-<!-- 
-<pre class="mb-4 bg-light p-3 rounded">
-{{ vehicle | json }}
-</pre>
- -->
+<!-- ==============================
+     Vehicle Form Page
+============================== -->
 
-<form
-  #f="ngForm"
-  (ngSubmit)="submit()"
-  novalidate
->
-  <!-- Make -->
-  <div class="mb-3">
-    <label for="make" class="form-label">
-      Make
-    </label>
+<h1 class="mb-4">
+  {{ vehicle.id ? ('vehicle.editHeading' | translate) : ('vehicle.newHeading' | translate) }}
+</h1>
 
-    <select
-      id="make"
-      name="makeId"
-      class="form-select"
-      [(ngModel)]="vehicle.makeId"
-      (change)="onMakeChange()"
-      required
-      #make="ngModel"
-    >
-      <option value=""></option>
-      <option
-        *ngFor="let m of makes"
-        [value]="m.id"
-      >
-        {{ m.name }}
-      </option>
-    </select>
+<form #f="ngForm" (ngSubmit)="submit()" novalidate>
 
-    <div
-      class="invalid-feedback d-block"
-      *ngIf="make.touched && !make.valid"
-    >
-      Please specify the make.
+  <!-- ==============================
+       Section: Vehicle Details
+  ============================== -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h2 class="h6 mb-0">{{ 'vehicle.details' | translate }}</h2>
+    </div>
+    <div class="card-body">
+
+      <!-- Make -->
+      <div class="mb-3">
+        <label for="make" class="form-label">{{ 'vehicle.make' | translate }}</label>
+        <select
+          id="make"
+          name="makeId"
+          class="form-select"
+          [(ngModel)]="vehicle.makeId"
+          (change)="onMakeChange()"
+          required
+          #make="ngModel"
+        >
+          <option value=""></option>
+          <option *ngFor="let m of makes" [ngValue]="m.id">{{ m.name }}</option>
+        </select>
+        <div class="invalid-feedback d-block" *ngIf="make.touched && !make.valid">
+          {{ 'vehicle.validation.makeRequired' | translate }}
+        </div>
+      </div>
+
+      <!-- Model -->
+      <div class="mb-3">
+        <label for="model" class="form-label">{{ 'vehicle.model' | translate }}</label>
+        <select
+          id="model"
+          name="modelId"
+          class="form-select"
+          [(ngModel)]="vehicle.modelId"
+          required
+          #model="ngModel"
+        >
+          <option value=""></option>
+          <option *ngFor="let m of models" [ngValue]="m.id">{{ m.name }}</option>
+        </select>
+        <div class="invalid-feedback d-block" *ngIf="model.touched && !model.valid">
+          {{ 'vehicle.validation.modelRequired' | translate }}
+        </div>
+      </div>
+
+      <!-- Registered -->
+      <div class="mb-3">
+        <p class="mb-2">{{ 'vehicle.isRegisteredQuestion' | translate }}</p>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="isRegistered"
+            [checked]="vehicle.isRegistered === true"
+            (change)="vehicle.isRegistered = true"
+            id="registeredYes"
+          />
+          <label class="form-check-label" for="registeredYes">{{ 'messages.yes' | translate }}</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="isRegistered"
+            [checked]="vehicle.isRegistered === false"
+            (change)="vehicle.isRegistered = false"
+            id="registeredNo"
+          />
+          <label class="form-check-label" for="registeredNo">{{ 'messages.no' | translate }}</label>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Model -->
-  <div class="mb-3">
-    <label for="model" class="form-label">
-      Model
-    </label>
-
-    <select
-      id="model"
-      name="modelId"
-      class="form-select"
-      [(ngModel)]="vehicle.modelId"
-    >
-      <option
-        *ngFor="let m of models"
-        [value]="m.id"
-      >
-        {{ m.name }}
-      </option>
-    </select>
-  </div>
-
-  <!-- Registered -->
-  <div class="mb-4">
-    <p class="mb-2">
-      Is this vehicle registered?
-    </p>
-
-    <div class="form-check form-check-inline">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="isRegistered"
-        [value]="true"
-        [(ngModel)]="vehicle.isRegistered"
-        id="registeredYes"
-      />
-      <label
-        class="form-check-label"
-        for="registeredYes"
-      >
-        Yes
-      </label>
+  <!-- ==============================
+       Section: Features
+  ============================== -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h2 class="h6 mb-0">{{ 'vehicle.features' | translate }}</h2>
     </div>
-
-    <div class="form-check form-check-inline">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="isRegistered"
-        [value]="false"
-        [(ngModel)]="vehicle.isRegistered"
-        id="registeredNo"
-      />
-      <label
-        class="form-check-label"
-        for="registeredNo"
-      >
-        No
-      </label>
+    <div class="card-body">
+      <div class="form-check mb-2" *ngFor="let f of features">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [checked]="vehicle.features.includes(f.id)"
+          (change)="onFeatureToggle(f.id, $event)"
+          id="feature{{ f.id }}"
+        />
+        <label class="form-check-label" for="feature{{ f.id }}">{{ f.name }}</label>
+      </div>
     </div>
   </div>
 
-  <!-- Features -->
-  <h2 class="h5 mb-3">Features</h2>
+  <!-- ==============================
+       Section: Contact Information
+  ============================== -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h2 class="h6 mb-0">{{ 'vehicle.contact' | translate }}</h2>
+    </div>
+    <div class="card-body">
 
-  <div
-    class="form-check mb-2"
-    *ngFor="let f of features"
-  >
-    <input
-      class="form-check-input"
-      type="checkbox"
-      [checked]="vehicle.features.includes(f.id)"
-      (change)="onFeatureToggle(f.id, $event)"
-      id="feature{{ f.id }}"
-    />
-    <label
-      class="form-check-label"
-      for="feature{{ f.id }}"
-    >
-      {{ f.name }}
-    </label>
+      <div class="mb-3">
+        <label for="contactName" class="form-label">{{ 'vehicle.contactName' | translate }}</label>
+        <input
+          type="text"
+          id="contactName"
+          class="form-control"
+          name="contactName"
+          [(ngModel)]="vehicle.contact.name"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="contactPhone" class="form-label">{{ 'vehicle.contactPhone' | translate }}</label>
+        <input
+          type="text"
+          id="contactPhone"
+          class="form-control"
+          name="contactPhone"
+          [(ngModel)]="vehicle.contact.phone"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="contactEmail" class="form-label">{{ 'auth.email' | translate }}</label>
+        <input
+          type="email"
+          id="contactEmail"
+          class="form-control"
+          name="contactEmail"
+          [(ngModel)]="vehicle.contact.email"
+        />
+      </div>
+
+    </div>
   </div>
 
-  <!-- Contact -->
-  <h2 class="h5 mt-4 mb-3">Contact</h2>
-
-  <div class="mb-3">
-    <label for="contactName" class="form-label">
-      Name
-    </label>
-    <input
-      type="text"
-      id="contactName"
-      class="form-control"
-      name="contactName"
-      [(ngModel)]="vehicle.contact.name"
-    />
-  </div>
-
-  <div class="mb-3">
-    <label for="contactPhone" class="form-label">
-      Phone
-    </label>
-    <input
-      type="text"
-      id="contactPhone"
-      class="form-control"
-      name="contactPhone"
-      [(ngModel)]="vehicle.contact.phone"
-    />
-  </div>
-
-  <div class="mb-4">
-    <label for="contactEmail" class="form-label">
-      Email
-    </label>
-    <input
-      type="email"
-      id="contactEmail"
-      class="form-control"
-      name="contactEmail"
-      [(ngModel)]="vehicle.contact.email"
-    />
-  </div>
-
-  <!-- Actions -->
+  <!-- ==============================
+       Section: Actions
+  ============================== -->
   <div class="d-flex gap-2">
-    <button
-      class="btn btn-primary"
-      type="submit"
-      [disabled]="f.invalid"
-    >
-      Save
-    </button>
-
+    <button class="btn btn-primary" type="submit" [disabled]="f.invalid">{{ 'messages.save' | translate }}</button>
     <button
       *ngIf="vehicle.id"
       class="btn btn-danger"
       type="button"
       (click)="delete()"
     >
-      Delete
+      {{ 'messages.delete' | translate }}
     </button>
   </div>
+
 </form>

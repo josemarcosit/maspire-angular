@@ -1,18 +1,17 @@
-<h1 class="mb-4">Vehicles</h1>
+<h1 class="mb-4">{{ 'vehicle.title' | translate }}</h1>
 
 <a
   class="btn btn-primary mb-3"
   [routerLink]="['/vehicles/new']"
 >
-  New Vehicle
+  {{ 'vehicle.addNew' | translate }}
 </a>
-
 <div class="card mb-4">
   <div class="card-body">
     <div class="row align-items-end">
       <div class="col-md-4">
         <label for="make" class="form-label">
-          Make
+          {{ 'vehicle.make' | translate }}
         </label>
 
         <select
@@ -38,7 +37,7 @@
           class="btn btn-secondary w-100"
           (click)="resetFilter()"
         >
-          Reset
+          {{ 'vehicle.reset' | translate }}
         </button>
       </div>
     </div>
@@ -47,25 +46,25 @@
 
 <div class="table-responsive">
   <table class="table table-hover align-middle">
-    <thead class="table-light">
+    <thead>
       <tr>
         <th scope="col">Id</th>
 
         <th scope="col" (click)="sortBy('make')" style="cursor: pointer;">
-          Make
-          <fa-icon icon="coffee" class="ms-1"></fa-icon>
+          {{ 'vehicle.make' | translate }}
+          <fa-icon class="ms-1"></fa-icon>
         </th>
 
         <th scope="col" (click)="sortBy('model')" style="cursor: pointer;">
-          Model
+          {{ 'vehicle.model' | translate }}
         </th>
 
         <th scope="col" (click)="sortBy('contactName')" style="cursor: pointer;">
-          Contact Name
+          {{ 'vehicle.contactName' | translate }}
         </th>
 
         <th scope="col">
-          View
+          {{ 'vehicle.view' | translate }}
         </th>
       </tr>
     </thead>
@@ -73,15 +72,15 @@
     <tbody>
       <tr *ngFor="let v of vehicles">
         <td>{{ v.id }}</td>
-        <td>{{ v.make.id }}</td>
-        <td>{{ v.model.id }}</td>
+        <td>{{ v.make.name }}</td>
+        <td>{{ v.model.name }}</td>
         <td>{{ v.contact.name }}</td>
         <td>
           <a
             class="btn btn-sm btn-outline-primary"
             [routerLink]="['/vehicles', v.id]"
           >
-            View
+            {{ 'vehicle.view' | translate }}
           </a>
         </td>
       </tr>

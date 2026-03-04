@@ -4,7 +4,7 @@
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">
-        Angular Vega
+        {{ 'nav.brand' | translate }}
       </a>
 
       <button
@@ -28,9 +28,10 @@
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
+            *ngIf="isLoggedIn"
           >
             <a class="nav-link text-dark" [routerLink]="['/vehicles']">
-              Vehicles
+              {{ 'nav.vehicles' | translate }}
             </a>
           </li>
 
@@ -38,12 +39,43 @@
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
+            *ngIf="isLoggedIn"
           >
             <a class="nav-link text-dark" [routerLink]="['/vehicles/new']">
-              New Vehicle
+              {{ 'nav.new' | translate }}
             </a>
           </li>
         </ul>
+
+        <!-- Language Selector & Auth Section -->
+        <div class="navbar-nav ms-auto d-flex align-items-center gap-2">
+          <app-language-selector></app-language-selector>
+          
+          <div *ngIf="isLoggedIn" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fa fa-user"></i> {{ currentUser?.fullName || ('auth.username' | translate) }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">{{ 'auth.myProfile' | translate }}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">
+                <i class="fa fa-sign-out"></i> {{ 'auth.logout' | translate }}
+              </a></li>
+            </ul>
+          </div>
+
+          <div *ngIf="!isLoggedIn" class="nav-item">
+            <a class="nav-link text-dark" [routerLink]="['/login']">
+              <i class="fa fa-sign-in"></i> {{ 'auth.login' | translate }}
+            </a>
+          </div>
+
+          <div *ngIf="!isLoggedIn" class="nav-item">
+            <a class="nav-link text-dark" [routerLink]="['/register']">
+              <i class="fa fa-user-plus"></i> {{ 'auth.register' | translate }}
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>

@@ -3,84 +3,78 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Make } from '../shared/models/make';
 import { Vehicle } from '../shared/models/vehicle';
+import { environment } from '../shared/config/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VehicleService {
-  private readonly vehiclesEndpoint = 'https://localhost:7257/api/vehicles';
+  private readonly vehiclesEndpoint = `${environment.apiUrl}/api/vehicles`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
 
+  getMakes() {
+    return this.http.get<Make[]>(`${environment.apiUrl}/api/makes`).pipe(map((res) => res));
   }
 
-  getMakes(){
-    return this.http.get<Make[]>('https://localhost:7257/api/makes').pipe(
-        map(res => res ));
+  getFeatures() {
+    return this.http.get<any[]>(`${environment.apiUrl}/api/features`).pipe(map((res) => res));
   }
 
-  getFeatures(){
-    return this.http.get<any[]>('https://localhost:7257/api/vehicle/features').pipe(
-        map(res => res ));
-  }
-
-  create(vehicle: any){
-    var data: any = {
+  create(vehicle: any) {
+    const data: any = {
       modelId: vehicle.modelId,
-      isRegistered: vehicle.isRegistered == "true" ? true : false,
+      isRegistered: vehicle.isRegistered == 'true' ? true : false,
       makeId: vehicle.makeId,
-      contact:{
+      contact: {
         Name: vehicle.contact.name,
         Phone: vehicle.contact.phone,
-        Email: vehicle.contact.email
-    	},
-      features: vehicle.features
+        Email: vehicle.contact.email,
+      },
+      features: vehicle.features,
     };
 
-    return this.http.post(this.vehiclesEndpoint,data).pipe(
-        map(res => res ));
+    return this.http.post(this.vehiclesEndpoint, data).pipe(map((res) => res));
   }
 
-  getVehicle(id: number){
-    return this.http.get<any>(this.vehiclesEndpoint + '/' + id).pipe(
-      map(res => res ));
+  getVehicle(id: number) {
+    return this.http.get<Vehicle>(this.vehiclesEndpoint + '/' + id);
   }
 
-  update(vehicle: any){
-    var data: any = {
+  update(vehicle: any) {
+    const data: any = {
       modelId: vehicle.modelId,
-      isRegistered: vehicle.isRegistered == "true" ? true : false,
+      isRegistered: vehicle.isRegistered == 'true' ? true : false,
       makeId: vehicle.makeId,
-      contact:{
+      contact: {
         Name: vehicle.contact.name,
         Phone: vehicle.contact.phone,
-        Email: vehicle.contact.email
-    	},
-      features: vehicle.features
+        Email: vehicle.contact.email,
+      },
+      features: vehicle.features,
     };
 
-    return this.http.put(this.vehiclesEndpoint + '/' + vehicle.id ,data).pipe(
-        map(res => res ));
+    return this.http.put(this.vehiclesEndpoint + '/' + vehicle.id, data).pipe(map((res) => res));
   }
 
-  delete(id:number){
-    return this.http.delete(this.vehiclesEndpoint + '/' + id).pipe(
-        map(res => res ));
+  delete(id: number) {
+    return this.http.delete(this.vehiclesEndpoint + '/' + id).pipe(map((res) => res));
   }
 
-  getVehicles(filter: any){
-
-    return this.http.get<Vehicle[]>(this.vehiclesEndpoint + '?' + this.toQueryString(filter)).pipe(
-      map(res => res ));
+  getVehicles(filter: any) {
+    return this.http
+      .get<any[]>(this.vehiclesEndpoint + '?' + this.toQueryString(filter))
+      .pipe(map((res) => res));
   }
 
-  toQueryString(obj: any){
-    var parts = [];
-    for (var property in obj){
-      var value = obj[property];
+  toQueryString(obj: any) {
+    const parts = [];
+    for (const property in obj) {
+      const value = obj[property];
 
-      if(value != null && value != undefined)
-        parts.push(encodeURIComponent(property) + '='+ encodeURIComponent(value));
+      if (value != null && value != undefined) {
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+      }
     }
     return parts.join('&');
   }

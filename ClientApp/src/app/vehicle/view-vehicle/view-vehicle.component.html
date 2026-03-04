@@ -1,7 +1,13 @@
-<h1 class="mb-4">Vehicle</h1>
+<!-- ==============================
+     Vehicle View Page – Modern Dashboard
+============================== -->
 
-<!-- Tabs navigation -->
-<ul class="nav nav-tabs mb-3" role="tablist">
+<h1 class="mb-4">{{ 'vehicle.singular' | translate }}</h1>
+
+<!-- ==============================
+     Tabs Navigation
+============================== -->
+<ul class="nav nav-tabs mb-4" role="tablist">
   <li class="nav-item">
     <button
       class="nav-link"
@@ -9,7 +15,7 @@
       (click)="selectTab('basic')"
       type="button"
     >
-      Basics
+      {{ 'tabs.basics' | translate }}
     </button>
   </li>
   <li class="nav-item">
@@ -19,54 +25,97 @@
       (click)="selectTab('photos')"
       type="button"
     >
-      Photos
+      {{ 'tabs.photos' | translate }}
     </button>
   </li>
 </ul>
 
-<!-- Tabs content -->
+<!-- ==============================
+     Tabs Content
+============================== -->
 <div class="tab-content">
-  <!-- Basics tab -->
+
+  <!-- ==============================
+       Basics Tab
+  ============================== -->
   <div
     class="tab-pane fade"
     [class.show]="activeTab === 'basic'"
     [class.active]="activeTab === 'basic'"
   >
-    <h2>Basics</h2>
-    <ul>
-      <li>Make: {{ vehicle.make.name }}</li>
-      <li>Model: {{ vehicle.model.name }}</li>
-      <li>Registered: {{ vehicle.isRegistered ? 'Yes' : 'No' }}</li>
-    </ul>
+    <!-- Vehicle Details Card -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-dark text-white">
+        <h2 class="h6 mb-0">{{ 'tabs.basics' | translate }}</h2>
+      </div>
+      <div class="card-body">
 
-    <h2>Features</h2>
-    <ul>
-      <li *ngFor="let f of vehicle.features">{{ f.name }}</li>
-    </ul>
+        <!-- Basic Info -->
+        <h3 class="h6">{{ 'vehicle.details' | translate }}</h3>
+        <ul class="list-unstyled mb-3">
+          <li><strong>{{ 'vehicle.make' | translate }}:</strong> {{ vehicle.make.name }}</li>
+          <li><strong>{{ 'vehicle.model' | translate }}:</strong> {{ vehicle.model.name }}</li>
+          <li><strong>{{ 'vehicle.registered' | translate }}:</strong> {{ vehicle.isRegistered ? ('messages.yes' | translate) : ('messages.no' | translate) }}</li>
+        </ul>
 
-    <h2>Contact</h2>
-    <ul>
-      <li>Contact Name: {{ vehicle.contact.name }}</li>
-      <li>Contact Phone: {{ vehicle.contact.phone }}</li>
-      <li>Contact Email: {{ vehicle.contact.email }}</li>
-    </ul>
+        <!-- Features -->
+        <h3 class="h6">{{ 'vehicle.features' | translate }}</h3>
+        <ul class="list-unstyled mb-3">
+          <li *ngFor="let f of vehicle.features">{{ f.name }}</li>
+        </ul>
 
-    <div class="mt-3 d-flex gap-2">
-      <a class="btn btn-primary" routerLink="['/vehicles/edit', vehicle.id]">Edit</a>
-      <button class="btn btn-danger" (click)="delete()">Delete</button>
-      <a class="btn btn-outline-secondary" routerLink="['/vehicles']">View All Vehicles</a>
+        <!-- Contact Info -->
+        <h3 class="h6">{{ 'vehicle.contact' | translate }}</h3>
+        <ul class="list-unstyled">
+          <li><strong>{{ 'vehicle.contactName' | translate }}:</strong> {{ vehicle.contact.name }}</li>
+          <li><strong>{{ 'vehicle.contactPhone' | translate }}:</strong> {{ vehicle.contact.phone }}</li>
+          <li><strong>{{ 'vehicle.contactEmail' | translate }}:</strong> {{ vehicle.contact.email }}</li>
+        </ul>
+
+        <!-- Actions -->
+        <div class="mt-4 d-flex flex-wrap gap-2">
+          <a class="btn btn-primary" [routerLink]="['/vehicles/edit', vehicle.id]">
+            {{ 'vehicle.actions.edit' | translate }}
+          </a>
+          <button class="btn btn-danger" (click)="delete()">
+            {{ 'vehicle.actions.delete' | translate }}
+          </button>
+          <a class="btn btn-outline-secondary" [routerLink]="['/vehicles']">
+            {{ 'vehicle.actions.viewAll' | translate }}
+          </a>
+        </div>
+
+      </div>
     </div>
   </div>
 
-  <!-- Photos tab -->
+  <!-- ==============================
+       Photos Tab
+  ============================== -->
   <div
     class="tab-pane fade"
     [class.show]="activeTab === 'photos'"
     [class.active]="activeTab === 'photos'"
   >
-    <h2>Photos</h2>
-    <div class="d-flex flex-wrap gap-2">
-        <input type="file" />
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white">
+        <h2 class="h6 mb-0">{{ 'tabs.photos' | translate }}</h2>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap gap-3 align-items-start">
+          <!-- File Upload -->
+          <div class="mb-2">
+            <input id="fileInput" type="file" class="form-control" (change)="onChange($event)" />
+            <button class="btn btn-primary mt-2" (click)="uploadPhoto()" [disabled]="!file">{{ 'vehicle.actions.upload' | translate }}</button>
+          </div>
+
+          <!-- Existing Photos -->
+          <div class="d-flex flex-wrap gap-2">
+            <img *ngFor="let p of photos" [src]="getImageUrl(p.fileName)" class="img-thumbnail" style="width:120px; height:80px; object-fit:cover;" alt="photo">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
