@@ -88,8 +88,8 @@ This project uses a **monolithic architecture** pattern, where:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/angular-vega.git
-cd angular-vega
+git clone https://github.com/your-username/maspire-angular.git
+cd maspire-angular
 ```
 
 2. Configure the database connection in `appsettings.json`:
@@ -108,8 +108,8 @@ dotnet ef database update
 ```json
 "JwtSettings": {
   "Secret": "your_very_secret_key_with_minimum_32_characters!!!",
-  "Issuer": "angular-vega-issuer",
-  "Audience": "angular-vega-audience",
+  "Issuer": "maspire-angular-issuer",
+  "Audience": "maspire-angular-audience",
   "ExpirationMinutes": 480
 }
 ```
@@ -120,7 +120,7 @@ As a monolithic application, everything runs as a single unit:
 
 **Terminal 1 - Start the entire application (Backend + Frontend)**
 ```bash
-cd h:\Github\angular-vega
+cd h:\Github\maspire-angular
 dotnet run
 ```
 Access at: `https://localhost:7257`
@@ -342,7 +342,7 @@ app.UseRequestLocalization(localizationOptions);
 **Marker class:**
 ```csharp
 // SharedResources.cs
-namespace angular_vega
+namespace maspire_angular
 {
     public class SharedResources { }
 }
@@ -541,7 +541,7 @@ Angular development server with automatic browser reload.
 Since this is a monolithic architecture, you deploy everything as one unit:
 
 ```bash
-cd h:\Github\angular-vega
+cd h:\Github\maspire-angular
 dotnet publish -c Release -o ./publish
 ```
 
@@ -577,8 +577,8 @@ az webapp deployment source config-zip --resource-group myGroup --name myApp --s
   },
   "JwtSettings": {
     "Secret": "development-secret-key",
-    "Issuer": "angular-vega",
-    "Audience": "angular-vega-app",
+    "Issuer": "maspire-angular",
+    "Audience": "maspire-angular-app",
     "ExpirationMinutes": 480
   },
   "Logging": {
@@ -621,7 +621,7 @@ az webapp deployment source config-zip --resource-group myGroup --name myApp --s
 ### Creating a New Feature (Monolithic Way)
 
 1. Create data model in `Core/Models/`
-2. Add DbSet to `Persistence/VegaDbContext.cs`
+2. Add DbSet to `Persistence/maspireDbContext.cs`
 3. Create migration: `dotnet ef migrations add FeatureName`
 4. Apply migration: `dotnet ef database update`
 5. Create repository in `Core/`

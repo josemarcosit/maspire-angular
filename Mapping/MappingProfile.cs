@@ -1,8 +1,11 @@
-using angular_vega.Controllers.Resources;
-using angular_vega.Core.Models;
 using AutoMapper;
+using maspire_angular.Core.Models;
+using maspire_angular.Features.Feature;
+using maspire_angular.Features.Make;
+using maspire_angular.Features.Photo;
+using maspire_angular.Features.Vehicle;
 
-namespace angular_vega.Mapping
+namespace maspire_angular.Mapping
 {
     public class MappingProfile : Profile
     {

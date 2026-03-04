@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace angular_vega.Extensions
+namespace maspire_angular.Extensions
 {
     public static class IQuerybleExtensions
     {

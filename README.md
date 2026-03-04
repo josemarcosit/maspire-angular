@@ -46,8 +46,8 @@ Esta é uma aplicação web moderna que permite:
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/angular-vega.git
-cd angular-vega
+git clone https://github.com/seu-usuario/maspire-angular.git
+cd maspire-angular
 ```
 
 2. **Configure o banco de dados**
@@ -70,8 +70,8 @@ Em `appsettings.json`, altere a chave secreta para algo mais seguro:
 ```json
 "JwtSettings": {
   "Secret": "sua_chave_muito_secreta_com_minimo_32_caracteres!!!",
-  "Issuer": "angular-vega-issuer",
-  "Audience": "angular-vega-audience",
+  "Issuer": "maspire-angular-issuer",
+  "Audience": "maspire-angular-audience",
   "ExpirationMinutes": 480
 }
 ```
@@ -80,7 +80,7 @@ Em `appsettings.json`, altere a chave secreta para algo mais seguro:
 
 **Terminal 1 - Backend (ASP.NET Core)**
 ```bash
-cd h:\Github\angular-vega
+cd h:\Github\maspire-angular
 dotnet run
 ```
 Acessar: `https://localhost:7257`
@@ -339,7 +339,7 @@ app.UseRequestLocalization(localizationOptions);
 **Classe marcadora:**
 ```csharp
 // SharedResources.cs
-namespace angular_vega
+namespace maspire_angular
 {
     public class SharedResources { }
 }
@@ -495,8 +495,8 @@ As alterações serão compiladas automaticamente e o navegador recarregará.
   },
   "JwtSettings": {
     "Secret": "sua-chave-secreta",
-    "Issuer": "angular-vega",
-    "Audience": "angular-vega-app",
+    "Issuer": "maspire-angular",
+    "Audience": "maspire-angular-app",
     "ExpirationMinutes": 480
   }
 }

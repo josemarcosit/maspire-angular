@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular_vega": {
+    "maspire_angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular_vega:build:production"
+              "browserTarget": "maspire_angular:build:production"
             },
             "development": {
-              "browserTarget": "angular_vega:build:development",
+              "browserTarget": "maspire_angular:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -85,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular_vega:build"
+            "browserTarget": "maspire_angular:build"
           }
         },
         "test": {
@@ -142,7 +142,7 @@
       }
     }
   },
-  "defaultProject": "angular_vega",
+  "defaultProject": "maspire_angular",
   "cli": {
     "analytics": false
   }

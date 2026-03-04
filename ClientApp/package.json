@@ -1,5 +1,5 @@
 {
-  "name": "angular_vega",
+  "name": "maspire_angular",
   "version": "0.0.0",
   "scripts": {
     "lint": "ng lint",
@@ -11,7 +11,7 @@
     "start:windows": "ng serve --port 44466 --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\"",
     "start:default": "ng serve --port 44466 --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\"",
     "build": "ng build",
-    "build:ssr": "ng run angular_vega:server:dev",
+    "build:ssr": "ng run maspire_angular:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

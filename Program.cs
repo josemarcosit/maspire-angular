@@ -1,11 +1,16 @@
-using angular_vega.Core;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using angular_vega.Mapping;
-using angular_vega.Persistence;
+using maspire_angular.Features.Auth;
+using maspire_angular.Features.Feature;
+using maspire_angular.Features.Photo;
+using maspire_angular.Features.Vehicle;
+using maspire_angular.Infrastructure.Identity;
+using maspire_angular.Infrastructure.Persistence;
+using maspire_angular.Infrastructure.Persistence.Repository;
+using maspire_angular.Mapping;
+using maspire_angular.Shared.Abstractions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 using System.Text;
@@ -20,7 +25,7 @@ builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
-builder.Services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:Default"]));
+builder.Services.AddDbContext<MaspireDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:Default"]));
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>(), AppDomain.CurrentDomain.GetAssemblies());
 
@@ -51,12 +56,12 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-   options.AddPolicy("CorsPolicy", policy =>
-   {
-      policy.AllowAnyOrigin()
-          .AllowAnyHeader()
-          .AllowAnyMethod();          
-   });
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+    });
 });
 
 // Register services

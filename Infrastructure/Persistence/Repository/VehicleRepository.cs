@@ -1,0 +1,87 @@
+using maspire_angular.Extensions;
+using maspire_angular.Features.Vehicle;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+
+namespace maspire_angular.Infrastructure.Persistence.Repository
+{
+    public class VehicleRepository : IVehicleRepository
+    {
+        private readonly MaspireDbContext maspireDbContext;
+        public VehicleRepository(MaspireDbContext maspireDbContext)
+        {
+            this.maspireDbContext = maspireDbContext;
+        }
+        public void Add(Vehicle vehicle)
+        {
+            maspireDbContext.Add(vehicle);
+        }
+        public void Remove(Vehicle vehicle)
+        {
+            maspireDbContext.Remove(vehicle);
+        }
+        public async Task<Vehicle> GetVehicle(int id, bool includeRelated = true)
+        {
+            if (!includeRelated)
+                return await maspireDbContext.Vehicles.FindAsync(id);
+
+            return await maspireDbContext.Vehicles
+                .Include(v => v.Photos)
+            .Include(v => v.Features)
+            .ThenInclude(vf => vf.Feature)
+            .Include(v => v.Model)
+            .Include(v => v.Model.Make)
+            .SingleOrDefaultAsync(v => v.Id == id);
+        }
+        public async Task<Vehicle> GetVehicleWithMake(int id)
+        {
+            return await maspireDbContext.Vehicles
+             .Include(v => v.Features)
+             .ThenInclude(vf => vf.Feature)
+             .Include(v => v.Model)
+             .Include(v => v.Model.Make)
+             .SingleOrDefaultAsync(v => v.Id == id);
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery queryObj)
+        {
+            var query = maspireDbContext.Vehicles
+             .Include(v => v.Model)
+             .ThenInclude(m => m.Make)
+             .Include(v => v.Features)
+             .ThenInclude(vf => vf.Feature)
+             .AsQueryable();
+
+            if (queryObj.MakeId.HasValue)
+                query = query.Where(v => v.Model.MakeId == queryObj.MakeId);
+
+            if (queryObj.ModelId.HasValue)
+                query = query.Where(v => v.ModelId == queryObj.ModelId);
+
+            if (queryObj.SortBy == "make")
+                query = queryObj.IsSortAscending ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
+
+            if (queryObj.SortBy == "model")
+                query = queryObj.IsSortAscending ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
+
+            if (queryObj.SortBy == "contactName")
+                query = queryObj.IsSortAscending ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
+
+            if (queryObj.SortBy == "id")
+                query = queryObj.IsSortAscending ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
+
+            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>()
+            {
+                ["make"] = v => v.Model.Make.Name,
+                ["model"] = v => v.Model.Name,
+                ["contactName"] = v => v.ContactName
+            };
+
+            query = query.ApplyOrdering(queryObj, columnsMap);
+
+            query = query.ApplySorting(queryObj);
+
+            return await query.ToListAsync();
+        }
+    }
+}

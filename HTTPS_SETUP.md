@@ -19,7 +19,7 @@ A aplicação já está 100% configurada para HTTPS local em desenvolvimento. Aq
 
 ### 1. Iniciar o Backend
 ```bash
-cd h:\Github\angular-vega
+cd h:\Github\maspire-angular
 dotnet run
 ```
 A aplicação abrirá em `https://localhost:7257`
