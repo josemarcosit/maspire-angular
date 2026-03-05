@@ -1,20 +1,37 @@
 # MARSPIRE MOTORS
 
-Um sistema completo de gerenciamento de veículos construído com **ASP.NET Core 7** e **Angular**, com autenticação JWT, autorização baseada em roles e HTTPS seguro.
+Languages:
+- 🇺🇸 English (default)
+- 🇧🇷 [Português](README.pt-BR.md)
 
-## Descritivo do Projeto
+A comprehensive vehicle management system built with **ASP.NET Core 7** and **Angular**, featuring JWT authentication, role-based authorization, and secure HTTPS in a **monolithic architecture**.
 
-Esta é uma aplicação web moderna que permite:
-- Gerir um catálogo de veículos (criar, editar, visualizar, deletar)
-- Gerenciar makes (fabricantes) e features (características)
-  * endpoint de features aceita parâmetro `lang` ou cabeçalho `Accept-Language` para devolver nomes traduzidos conforme o idioma solicitado
-- Upload de fotos para veículos
-- Sistema de autenticação com JWT
-- Controle de acesso baseado em roles
-- HTTPS seguro em desenvolvimento local
-- Interface responsiva com Bootstrap
+## Project Overview
 
-## Arquitetura
+This is a modern web application that demonstrates a **monolithic architecture** where both frontend (Angular) and backend (ASP.NET Core) are tightly integrated and deployed as a single unit. The application allows:
+
+- Manage a catalog of vehicles (create, edit, view, delete)
+- Manage makes (manufacturers) and features (vehicle characteristics)
+  * features endpoint supports a `lang` query parameter (or `Accept-Language` header) returning names translated according to the requested locale
+- Upload photos for vehicles
+- User authentication system with JWT
+- Access control based on user roles
+- Secure HTTPS in local development
+- Responsive user interface with Bootstrap
+
+## Monolithic Architecture
+
+This project uses a **monolithic architecture** pattern, where:
+
+- All application functionality is contained in a single codebase
+- Backend (C# with ASP.NET Core) and Frontend (TypeScript with Angular) are tightly integrated
+- Single deployment unit - backend serves both API and static Angular files
+- Shared database for all application layers
+- Simpler initial development compared to microservices
+- Easier to debug and test during development phase
+- Single point of scaling for the entire application
+
+### Architecture Diagram
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -45,139 +62,140 @@ Esta é uma aplicação web moderna que permite:
 └──────────────────────────────────────────────────────────┘
 ```
 
-### Stack Tecnológico
+## Technology Stack
 
-**Backend:**
-- ASP.NET Core 7.0
-- Entity Framework Core (Code-First)
-- SQL Server
-- AutoMapper
-- JWT (JSON Web Tokens)
+### Backend
+- ASP.NET Core 7.0 (Monolithic Framework)
+- Entity Framework Core (Code-First ORM)
+- SQL Server (Relational Database)
+- AutoMapper (Object Mapping)
+- JWT (JSON Web Tokens for Authentication)
 
-**Frontend:**
-- Angular 14+
-- TypeScript
-- Bootstrap 5
-- ngx-toastr (notificações)
-- Font Awesome (ícones)
-- Reactive Forms
+### Frontend
+- Angular 14+ (Monolithic SPA)
+- TypeScript (Typed JavaScript)
+- Bootstrap 5 (CSS Framework)
+- ngx-toastr (Toast Notifications)
+- Font Awesome (Icon Library)
+- Reactive Forms (Form Management)
 
-## Telas
+## Screen
 
 ### Login
 
 ![Login](docs/login.png)
 
-### Gerir um catálogo de veículos
+### Manage a catalog of vehicles
 
-![Listar](docs/vehicle-list.png)
+![List](docs/vehicle-list.png)
 
-![Novo](docs/vehicle-new.png)
+![New](docs/vehicle-new.png)
 
 ## Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
 - .NET 7 SDK
-- Node.js (v14+) e npm
-- SQL Server (LocalDB ou express)
-- Visual Studio Code ou Visual Studio
+- Node.js (v14+) with npm
+- SQL Server (LocalDB or Express Edition)
+- Visual Studio Code or Visual Studio 2022
 
-### Instalação
+### Installation
 
-1. **Clone o repositório**
+1. Clone the repository
 ```bash
-git clone https://github.com/seu-usuario/maspire-angular.git
+git clone https://github.com/your-username/maspire-angular.git
 cd maspire-angular
 ```
 
-2. **Configure o banco de dados**
-
-Atualize a string de conexão em `appsettings.json`:
+2. Configure the database connection in `appsettings.json`:
 ```json
 "ConnectionStrings": {
   "Default": "Server=(localdb)\\mssqllocaldb;Database=maspire;Integrated Security=true;Encrypt=false;"
 }
 ```
 
-3. **Execute as migrations**
+3. Apply database migrations
 ```bash
 dotnet ef database update
 ```
 
-4. **Configure a chave JWT** (IMPORTANTE!)
-
-Em `appsettings.json`, altere a chave secreta para algo mais seguro:
+4. Configure JWT settings in `appsettings.json` (IMPORTANT!):
 ```json
 "JwtSettings": {
-  "Secret": "sua_chave_muito_secreta_com_minimo_32_caracteres!!!",
+  "Secret": "your_very_secret_key_with_minimum_32_characters!!!",
   "Issuer": "maspire-angular-issuer",
   "Audience": "maspire-angular-audience",
   "ExpirationMinutes": 480
 }
 ```
 
-### Executar a Aplicação
+### Running the Application
 
-**Terminal 1 - Backend (ASP.NET Core)**
+As a monolithic application, everything runs as a single unit:
+
+**Terminal 1 - Start the entire application (Backend + Frontend)**
 ```bash
 cd h:\Github\maspire-angular
 dotnet run
 ```
-Acessar: `https://localhost:7257`
+Access at: `https://localhost:7257`
 
-**Terminal 2 - Frontend (Angular)**
+The backend automatically serves:
+- REST APIs at `/api/*`
+- Angular SPA at `/` (wwwroot directory)
+
+**Terminal 2 - Optional: Run Angular dev server with live reload**
 ```bash
 cd ClientApp
 npm install
 npm start
 ```
-Acessar: `http://localhost:4200`
+Angular development server at: `http://localhost:4200`
 
-Angular fará proxy automático das requisições `/api/*` para `https://localhost:7257`
+This is perfect for development with hot module reload (HMR).
 
-## Autenticação e Autorização
+## Authentication and Authorization
 
-### Sistema de Autenticação
+### JWT Authentication System
 
-A aplicação usa **JWT (JSON Web Tokens)** para autenticação:
+The application uses **JWT (JSON Web Tokens)** for stateless authentication:
 
-1. Usuário faz login com email e senha
-2. Backend gera um token JWT assinado
-3. Frontend armazena o token no `localStorage`
-4. Token é enviado em cada requisição no header `Authorization: Bearer <token>`
-5. Backend valida o token em endpoints protegidos
+1. User submits credentials via login form
+2. Backend validates credentials and generates JWT token
+3. Frontend stores token in `localStorage`
+4. Token is sent with every request in the `Authorization: Bearer <token>` header
+5. Backend validates token signature and expiration on protected endpoints
 
-### Registro e Login
+### Authentication Endpoints
 
-**Endpoints de Autenticação:**
-
-- `POST /api/auth/register` - Criar nova conta
+- `POST /api/auth/register` - Create new user account
   ```json
   {
     "email": "user@example.com",
-    "fullName": "João da Silva",
-    "password": "senha123"
+    "fullName": "John Silva",
+    "password": "password123"
   }
   ```
 
-- `POST /api/auth/login` - Fazer login
+- `POST /api/auth/login` - User login
   ```json
   {
     "email": "user@example.com",
-    "password": "senha123"
+    "password": "password123"
   }
   ```
 
-### Proteção de Rotas
+### Protected Routes
 
-Todas as rotas de veículos requerem autenticação:
-- `GET /api/vehicles` - Listar veículos
-- `POST /api/vehicles` - Criar veículo
-- `PUT /api/vehicles/{id}` - Editar veículo
-- `DELETE /api/vehicles/{id}` - Deletar veículo
+All vehicle-related routes require authentication:
+- `GET /api/vehicles` - List all vehicles
+- `POST /api/vehicles` - Create vehicle
+- `PUT /api/vehicles/{id}` - Update vehicle
+- `DELETE /api/vehicles/{id}` - Delete vehicle
+- `GET /api/vehicles/{id}/photos` - Vehicle photos
 
-A rota é protegida no Angular com o `AuthGuard`:
+Protected in Angular with `AuthGuard`:
 ```typescript
 { 
   path: 'vehicles', 
@@ -186,29 +204,29 @@ A rota é protegida no Angular com o `AuthGuard`:
 }
 ```
 
-Se o usuário não estiver autenticado, é redirecionado para `/login`.
+Unauthenticated users are redirected to `/login`.
 
-## HTTPS Local
+## HTTPS Local Development
 
-A aplicação usa HTTPS seguro em desenvolvimento:
+The application uses secure HTTPS even in local development:
 
-- **Backend**: `https://localhost:7257`
-- **Frontend**: `http://localhost:4200` (proxy automático com HTTPS)
-- **Certificado**: Auto-assinado e confiável no Windows
+- Backend: `https://localhost:7257`
+- Frontend: `http://localhost:4200` (proxies to HTTPS backend)
+- Certificate: Self-signed and trusted in Windows
 
-Se precisar regenerar o certificado:
+To regenerate the certificate if needed:
 ```bash
 dotnet dev-certs https --clean
 dotnet dev-certs https --trust
 ```
 
-Veja [HTTPS_SETUP.md](HTTPS_SETUP.md) para mais detalhes.
+See [HTTPS_SETUP.md](HTTPS_SETUP.md) for detailed information.
 
-## Configuração de Ambiente
+## Environment Configuration
 
-### Arquivo de Configuração
+### Environment File
 
-**Localização**: `ClientApp/src/app/shared/config/environment.ts`
+**Location**: `ClientApp/src/app/shared/config/environment.ts`
 
 ```typescript
 export const environment = {
@@ -217,12 +235,12 @@ export const environment = {
 };
 ```
 
-Use `environment.apiUrl` em todos os serviços para centralizar as URLs.
+All services use `environment.apiUrl` for centralized API configuration.
 
-### Adicionar Novo Serviço
+### Adding a New Service
 
 ```typescript
-// ClientApp/src/app/services/novo.service.ts
+// ClientApp/src/app/services/example.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../shared/config/environment';
@@ -230,8 +248,8 @@ import { environment } from '../shared/config/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class NovoService {
-  private apiUrl = `${environment.apiUrl}/api/novo`;
+export class ExampleService {
+  private apiUrl = `${environment.apiUrl}/api/example`;
 
   constructor(private http: HttpClient) { }
 
@@ -241,99 +259,59 @@ export class NovoService {
 }
 ```
 
-## Modelos de Dados
+## Data Models
 
-### Diagrama do Banco de Dados
+### Database Schema Diagram
 
 ![Schema](docs/Schema.png)
 
-O diagrama acima mostra a estrutura completa do banco de dados com todos os relacionamentos entre as entidades.
+The diagram above shows the complete database structure with all entity relationships.
 
+### Entity Relationships
 
+- **User**: System users with authentication
+- **Vehicle**: Vehicle entity (belongs to Make and Model, has many Features and Photos)
+- **Make**: Vehicle brand (has many Models)
+- **Model**: Vehicle model (belongs to Make)
+- **Feature**: Available features (many-to-many with Vehicle via VehicleFeature)
+  - translated names are stored in `FeatureTranslations` table and served automatically when a language is specified
+- **VehicleFeature**: Junction table (N:N relationship)
+- **Photo**: Vehicle photos (one-to-many relationship)
+- **Contact**: Vehicle contact (one-to-one relationship)
 
-### Relacionamentos
+## Localization and Internationalization (i18n)
 
-- **User**: Usuários do sistema
-- **Vehicle**: Veículo (belongs to Make e Model, has many Features e Photos)
-- **Make**: Marca de veículos (has many Models)
-- **Model**: Modelo de veículo (belongs to Make)
-- **Feature**: Características disponíveis (many-to-many com Vehicle via VehicleFeature)
-  - nomes traduzidos são guardados em tabela `FeatureTranslations` e servidos automaticamente quando um idioma é informado
+The application supports **multiple languages** with complete localization on both frontend and backend.
 
-  * disponível via endpoint `GET /api/vehicle/features` que agora aceita consulta `?lang=` para retornar nomes de acordo com o idioma informado.
-- **VehicleFeature**: Junction table (N:N)
-- **Photo**: Fotos do veículo (one-to-many)
-- **Contact**: Contato do veículo (one-to-one)
+### Supported Languages
 
-## Testando a API
+- 🇧🇷 **Portuguese (Brazil)** - `pt-BR` (original default)
+- 🇺🇸 **English (US)** - `en-US` (current default)
+- 🇪🇸 **Spanish** - `es`
 
-### Com REST Client (VS Code)
+### Frontend - Language Selector
 
-Use a extensão REST Client para testar os endpoints.
-
-**Arquivo**: `Tests/RestClient.http`
-
-```http
-### Login
-POST https://localhost:7257/api/auth/login
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "senha123"
-}
-
-### Criar Veículo
-POST https://localhost:7257/api/vehicles
-Content-Type: application/json
-Authorization: Bearer <seu-token-jwt>
-
-{
-  "makeId": 1,
-  "modelId": 1,
-  "isRegistered": true,
-  "contact": {
-    "name": "João Silva",
-    "phone": "11999999999",
-    "email": "joao@example.com"
-  },
-  "features": [1, 2, 3]
-}
-```
-
-## Localização e Internacionalização (i18n)
-
-A aplicação suporta **múltiplos idiomas** com localização completa no frontend e backend.
-
-### Idiomas Suportados
-
-- 🇧🇷 **Português (Brasil)** - `pt-BR` (padrão original)
-- 🇺🇸 **English (US)** - `en-US` (padrão atual)
-- 🇪🇸 **Español** - `es`
-
-### Frontend - Seletor de Idioma
-
-O componente `LanguageSelectorComponent` exibe um seletor dropdown com bandeiras de cada idioma:
+The `LanguageSelectorComponent` displays a dropdown selector with flags for each language:
 
 ```typescript
 // ClientApp/src/app/shared/components/language-selector/language-selector.component.ts
 selector: 'app-language-selector'
 ```
 
-**Características:**
-- Exibe bandeira emoji do país atual
-- Dropdown com opções de idiomas
-- Armazena a seleção em `localStorage` (persiste entre sessões)
-- Emite evento ao `LanguageService` quando o idioma muda
+**Features:**
+- Displays flag emoji of the current language
+- Dropdown with language options
+- Stores selection in `localStorage` (persists across sessions)
+- Emits event to `LanguageService` when language changes
 
-**Uso no template:**
+**Usage in template:**
 ```html
 <app-language-selector></app-language-selector>
 ```
 
-### Frontend - Interceptor de Accept-Language
+### Frontend - Accept-Language Interceptor
 
-Um `HttpInterceptor` automaticamente adiciona o header `Accept-Language` em todas as requisições HTTP:
+An `HttpInterceptor` automatically adds the `Accept-Language` header to all HTTP requests:
 
 ```typescript
 // ClientApp/src/app/services/language-header.interceptor.ts
@@ -348,13 +326,13 @@ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
 }
 ```
 
-Isso permite que o backend saiba qual idioma o cliente deseja.
+This allows the backend to know which language the client prefers.
 
 ### Backend - Localization Services
 
-O backend implementa **ASP.NET Core Localization** com arquivos `.resx`:
+The backend implements **ASP.NET Core Localization** with `.resx` resource files:
 
-**Registro em `Program.cs`:**
+**Registration in `Program.cs`:**
 ```csharp
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -362,7 +340,7 @@ builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
-// Configurar culturas suportadas
+// Configure supported cultures
 var supportedCultures = new[] { "pt-BR", "en-US", "es" }
     .Select(c => new CultureInfo(c))
     .ToList();
@@ -377,7 +355,7 @@ var localizationOptions = new RequestLocalizationOptions
 app.UseRequestLocalization(localizationOptions);
 ```
 
-**Classe marcadora:**
+**Marker class:**
 ```csharp
 // SharedResources.cs
 namespace maspire_angular
@@ -386,9 +364,9 @@ namespace maspire_angular
 }
 ```
 
-### Injeção de IStringLocalizer
+### Injecting IStringLocalizer
 
-Controllers injetam `IStringLocalizer<SharedResources>` para obter mensagens localizadas:
+Controllers inject `IStringLocalizer<SharedResources>` to retrieve localized messages:
 
 ```csharp
 // AuthController.cs
@@ -408,43 +386,43 @@ public class AuthController : Controller
         return Ok(new AuthResult
         {
             Success = true,
-            Message = _localizer["LoginSuccess"],  // Mensagem localizada!
+            Message = _localizer["LoginSuccess"],  // Localized message!
             // ...
         });
     }
 }
 ```
 
-### Arquivos de Recurso (.resx)
+### Resource Files (.resx)
 
-Localização com chaves e valores em diferentes idiomas:
+Localization with keys and values in different languages:
 
-**Estrutura:**
+**Structure:**
 ```
 Resources/
-├── SharedResources.resx          # Padrão (fallback)
+├── SharedResources.resx          # Default (fallback)
 ├── SharedResources.en-US.resx    # English
-├── SharedResources.pt-BR.resx    # Português
-└── SharedResources.es.resx       # Español
+├── SharedResources.pt-BR.resx    # Portuguese
+└── SharedResources.es.resx       # Spanish
 ```
 
-**Exemplo de conteúdo (`SharedResources.pt-BR.resx`):**
+**Example content (`SharedResources.en-US.resx`):**
 ```xml
 <data name="LoginSuccess" xml:space="preserve">
-  <value>Login realizado com sucesso!</value>
+  <value>Login successful!</value>
 </data>
 <data name="FeatureNotFound" xml:space="preserve">
-  <value>Característica não encontrada</value>
+  <value>Feature not found</value>
 </data>
 <data name="InvalidFileType" xml:space="preserve">
-  <value>Tipo de arquivo inválido</value>
+  <value>Invalid file type</value>
 </data>
 ```
 
-### Chaves de Recurso Disponíveis
+### Available Resource Keys
 
-| Chave | en-US | pt-BR | es |
-|-------|-------|-------|-----|
+| Key | en-US | pt-BR | es |
+|-----|-------|-------|-----|
 | `LoginSuccess` | Login successful! | Login realizado com sucesso! | Inicio de sesión exitoso! |
 | `FeatureFetchError` | Error fetching features | Erro ao obter características | Error al obtener características |
 | `FeatureNotFound` | Feature not found | Característica não encontrada | Característica no encontrada |
@@ -454,55 +432,116 @@ Resources/
 | `EmptyFile` | Empty file | Arquivo vazio | Archivo vacío |
 | `NullFile` | File is required | Arquivo é obrigatório | El archivo es obligatorio |
 
-### Controllers com Localização
+### Controllers with Localization
 
-- **AuthController**: Mensagens de login
-- **FeaturesController**: Mensagens de características (CRUD)
-- **PhotosController**: Mensagens de validação de upload
+- **AuthController**: Login messages
+- **FeaturesController**: Feature CRUD messages
+- **PhotosController**: Photo upload validation messages
 
-### Fluxo de Localização
+### Localization Flow
 
-1. Usuário seleciona idioma no dropdown (frontend)
-2. `LanguageService` armazena a seleção em `localStorage`
-3. Cada requisição HTTP carrega o header `Accept-Language`
-4. Backend recebe o header via `LanguageHeaderInterceptor`
-5. ASP.NET Core `RequestLocalization` middleware define a cultura atual
-6. `IStringLocalizer<SharedResources>` busca a mensagem no idioma correto
-7. Resposta é enviada com mensagem localizada
+1. User selects language in dropdown (frontend)
+2. `LanguageService` stores selection in `localStorage`
+3. Each HTTP request carries the `Accept-Language` header
+4. Backend receives header via `LanguageHeaderInterceptor`
+5. ASP.NET Core `RequestLocalization` middleware sets the current culture
+6. `IStringLocalizer<SharedResources>` retrieves the message in the correct language
+7. Response is sent with localized message
 
-### Adicionar Nova Mensagem Localizada
+### Adding a New Localized Message
 
-1. **Adicione a chave aos`.resx` em todos os idiomas:**
+1. **Add the key to all `.resx` files:**
    ```xml
-   <data name="MeusMensagem" xml:space="preserve">
+   <data name="MyMessage" xml:space="preserve">
      <value>My Message</value>
    </data>
    ```
 
-2. **Use no controller:**
+2. **Use in controller:**
    ```csharp
-   return BadRequest(_localizer["MinhaMsg"]);
+   return BadRequest(_localizer["MyMessage"]);
    ```
 
-### Alterar Idioma Padrão
+### Changing Default Language
 
-Mude em `Program.cs` na configuração de `RequestLocalizationOptions`:
+Modify in `Program.cs` in the `RequestLocalizationOptions` configuration:
 ```csharp
-DefaultRequestCulture = new RequestCulture("pt-BR")  // ou seu idioma
+DefaultRequestCulture = new RequestCulture("pt-BR")  // or your default
 ```
 
-E em `ClientApp/src/app/services/language.service.ts`:
+And in `ClientApp/src/app/services/language.service.ts`:
 ```typescript
 return localStorage.getItem('language') || 'pt-BR';
 ```
 
-## Dependências Principais
+## Testing the API
+
+### Using REST Client Extension
+
+Use VS Code REST Client extension to test endpoints.
+
+**File**: `Tests/RestClient.http`
+
+```http
+### User Registration
+POST https://localhost:7257/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "newuser@example.com",
+  "fullName": "John Doe",
+  "password": "password123"
+}
+
+### User Login
+POST https://localhost:7257/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+### Create Vehicle (requires authentication)
+POST https://localhost:7257/api/vehicles
+Content-Type: application/json
+Authorization: Bearer <your-jwt-token>
+
+{
+  "makeId": 1,
+  "modelId": 1,
+  "isRegistered": true,
+  "contact": {
+    "name": "John Silva",
+    "phone": "+5511999999999",
+    "email": "john@example.com"
+  },
+  "features": [1, 2, 3]
+}
+```
+
+## Development Workflow
+
+### Watch Mode (Backend)
+```bash
+dotnet watch run
+```
+Backend automatically recompiles when source files change.
+
+### Hot Module Reload (Frontend)
+```bash
+cd ClientApp
+npm start
+```
+Angular development server with automatic browser reload.
+
+## Main Dependencies
 
 ### Backend
 - Microsoft.EntityFrameworkCore
 - Microsoft.AspNetCore.Authentication.JwtBearer
 - AutoMapper
-- Azure.Storage.Blobs (para upload)
+- Microsoft.IdentityModel.Tokens
 
 ### Frontend
 - @angular/core
@@ -511,111 +550,131 @@ return localStorage.getItem('language') || 'pt-BR';
 - ngx-toastr
 - @fortawesome/angular-fontawesome
 
-## Fluxo de Desenvolvimento com Watch
+## Production Deployment
 
-**Backend com watch mode:**
+### Publishing the Monolithic Application
+
+Since this is a monolithic architecture, you deploy everything as one unit:
+
 ```bash
-dotnet watch run
+cd h:\Github\maspire-angular
+dotnet publish -c Release -o ./publish
 ```
 
-**Frontend com hot reload:**
+This creates a single deployment package containing:
+- Compiled backend code
+- Pre-built Angular SPA
+- All assets and dependencies
+
+### Deploy to Azure App Service
+
 ```bash
-cd ClientApp
-npm start
+# Create publish profile first, then:
+dotnet publish -c Release
+az webapp deployment source config-zip --resource-group myGroup --name myApp --src publish.zip
 ```
 
-As alterações serão compiladas automaticamente e o navegador recarregará.
+### Advantages of Monolithic Deployment
+- Simple deployment process (one package)
+- No cross-service communication issues
+- Shared authentication and authorization
+- Easier to maintain consistency
+- Lower operational complexity
 
-## Variáveis de Ambiente
+## Environment Variables
 
-**Backend** (`appsettings.Development.json`):
+### Backend Configuration
+**File**: `appsettings.Development.json`
+
 ```json
 {
   "ConnectionStrings": {
-    "Default": "Server=...;Database=maspire;..."
+    "Default": "Server=localhost;Database=maspire;Integrated Security=true;"
   },
   "JwtSettings": {
-    "Secret": "sua-chave-secreta",
+    "Secret": "development-secret-key",
     "Issuer": "maspire-angular",
     "Audience": "maspire-angular-app",
     "ExpirationMinutes": 480
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information"
+    }
   }
 }
 ```
 
-## Deploy
-
-### Deploy para Produção
-
-1. **Backend - Azure App Service:**
-   ```bash
-   dotnet publish -c Release
-   ```
-
-2. **Frontend - Azure Static Web Apps:**
-   ```bash
-   cd ClientApp
-   npm run build
-   ```
-
-3. Altere o `environment.ts` com a URL de produção:
-   ```typescript
-   export const environment = {
-     apiUrl: 'https://seu-dominio.com',
-     production: true
-   };
-   ```
-
 ## Troubleshooting
 
-### Erro: "Cannot GET /"
-- Certifique-se de que o backend está rodando
-- Verifique a porta HTTPS (7257)
+### Error: "Cannot GET /"
+- Ensure backend is running on port 7257
+- Check that `Program.cs` maps SPA fallback
 
-### Erro: "401 Unauthorized"
-- Faça login novamente
-- Verifique se o token está no localStorage
-- Regenere o certificado se necessário
+### Error: "401 Unauthorized"
+- Verify JWT token is stored in localStorage
+- Check token hasn't expired
+- Regenerate certificate if needed
 
-### Erro de CORS
-- Verifique `launchSettings.json`
-- Confirme que a porta HTTPS está correta
+### CORS Errors with HTTPS
+- Verify port 7257 in `launchSettings.json`
+- Check CORS policy in `Program.cs`
 
-## Documentação Adicional
+### Database Connection Issues
+- Verify connection string in `appsettings.json`
+- Ensure SQL Server is running
+- Run migrations: `dotnet ef database update`
 
-- [HTTPS_SETUP.md](HTTPS_SETUP.md) - Configuração de HTTPS local
+## Documentation
+
+- [HTTPS_SETUP.md](HTTPS_SETUP.md) - HTTPS configuration guide
 - [ASP.NET Core Documentation](https://learn.microsoft.com/en-us/aspnet/core)
 - [Angular Documentation](https://angular.io/docs)
+- [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core)
 
-## Desenvolvimento
+## Development Resources
 
-### Criar nova feature
+### Creating a New Feature (Monolithic Way)
 
-1. Criar model em `Features/NewFeature/Model`
-2. Criar migrations: `dotnet ef migrations add FeatureName`
-3. Atualizar banco: `dotnet ef database update`
-4. Criar controller em `Controllers/`
-5. Criar serviço Angular em `ClientApp/src/app/services/`
-6. Criar componentes em `ClientApp/src/app/`
+1. Create data model in `Features/NewFeature/Model/`
+2. Add DbSet to `Infrastructure/Persistence/maspireDbContext.cs`
+3. Create migration: `dotnet ef migrations add FeatureName`
+4. Apply migration: `dotnet ef database update`
+5. Create repository in `Infrastructure/Persistence`
+6. Create controller in `Features/FeatureName/`
+7. Create Angular service in `ClientApp/src/app/services/`
+8. Create Angular components in `ClientApp/src/app/`
 
-## Licença
+### Best Practices for Monolithic Architecture
 
-Este projeto está sob licença MIT.
+- Keep controllers focused and single-responsibility
+- Use dependency injection for loose coupling
+- Implement repository pattern for data access
+- Use DTOs for API responses
+- Implement proper error handling middleware
+- Use async/await for scalability
+- Implement proper logging
+- Use migrations for database versioning
+- Implement comprehensive testing
 
-## Contribuições
+## License
 
-Contribuições são bem-vindas! 
+This project is licensed under the MIT License.
 
-1. Faça um Fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+## Contributing
 
-## Contato
+Contributions are welcome!
 
-Para dúvidas ou sugestões, entre em contato através da seção Issues do GitHub.
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Support
+
+For questions or issues, please open an issue in the GitHub repository.
 
 ---
 
-Desenvolvido com ASP.NET Core e Angular
+Built with ASP.NET Core and Angular - Monolithic Architecture Pattern
