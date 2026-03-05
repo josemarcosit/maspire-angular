@@ -95,7 +95,7 @@ cd maspire-angular
 2. Configure the database connection in `appsettings.json`:
 ```json
 "ConnectionStrings": {
-  "Default": "Server=(localdb)\\mssqllocaldb;Database=VegaDb;Integrated Security=true;Encrypt=false;"
+  "Default": "Server=(localdb)\\mssqllocaldb;Database=maspire;Integrated Security=true;Encrypt=false;"
 }
 ```
 
@@ -573,7 +573,7 @@ az webapp deployment source config-zip --resource-group myGroup --name myApp --s
 ```json
 {
   "ConnectionStrings": {
-    "Default": "Server=localhost;Database=VegaDb;Integrated Security=true;"
+    "Default": "Server=localhost;Database=maspire;Integrated Security=true;"
   },
   "JwtSettings": {
     "Secret": "development-secret-key",
@@ -620,12 +620,12 @@ az webapp deployment source config-zip --resource-group myGroup --name myApp --s
 
 ### Creating a New Feature (Monolithic Way)
 
-1. Create data model in `Core/Models/`
-2. Add DbSet to `Persistence/maspireDbContext.cs`
+1. Create data model in `Features/NewFeature/Model/`
+2. Add DbSet to `Infrastructure/Persistence/maspireDbContext.cs`
 3. Create migration: `dotnet ef migrations add FeatureName`
 4. Apply migration: `dotnet ef database update`
-5. Create repository in `Core/`
-6. Create controller in `Controllers/`
+5. Create repository in `Infrastructure/Persistence`
+6. Create controller in `Features/FeatureName/`
 7. Create Angular service in `ClientApp/src/app/services/`
 8. Create Angular components in `ClientApp/src/app/`
 

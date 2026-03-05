@@ -55,7 +55,7 @@ cd maspire-angular
 Atualize a string de conexão em `appsettings.json`:
 ```json
 "ConnectionStrings": {
-  "Default": "Server=(localdb)\\mssqllocaldb;Database=VegaDb;Integrated Security=true;Encrypt=false;"
+  "Default": "Server=(localdb)\\mssqllocaldb;Database=maspire;Integrated Security=true;Encrypt=false;"
 }
 ```
 
@@ -491,7 +491,7 @@ As alterações serão compiladas automaticamente e o navegador recarregará.
 ```json
 {
   "ConnectionStrings": {
-    "Default": "Server=...;Database=VegaDb;..."
+    "Default": "Server=...;Database=maspire;..."
   },
   "JwtSettings": {
     "Secret": "sua-chave-secreta",
@@ -550,7 +550,7 @@ As alterações serão compiladas automaticamente e o navegador recarregará.
 
 ### Criar nova feature
 
-1. Criar model em `Core/Models/`
+1. Criar model em `Features/NewFeature/Model`
 2. Criar migrations: `dotnet ef migrations add FeatureName`
 3. Atualizar banco: `dotnet ef database update`
 4. Criar controller em `Controllers/`
