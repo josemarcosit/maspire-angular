@@ -75,6 +75,18 @@ This project uses a **monolithic architecture** pattern, where:
 - Font Awesome (Icon Library)
 - Reactive Forms (Form Management)
 
+## Screen
+
+### Login
+
+![Login](docs/login.png)
+
+### Manage a catalog of vehicles
+
+![List](docs/vehicle-list.png)
+
+![New](docs/vehicle-new.png)
+
 ## Getting Started
 
 ### Prerequisites
