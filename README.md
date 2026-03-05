@@ -48,9 +48,9 @@ This project uses a **monolithic architecture** pattern, where:
 │                                                          │
 │  Backend (API Server)                                    │
 │  ├── ASP.NET Core 7                                      │
-│  ├── Feature/Controllers (REST APIs)                             │
-│  ├── Feature/Services (Business Logic)                           │
-│  └── Persistence/Repositories (Data Access)                          │
+│  ├── Feature/Controllers (REST APIs)                     │
+│  ├── Feature/Services (Business Logic)                   │
+│  └── Persistence/Repositories (Data Access)              │
 │                      │                                   │
 │                      ↓                                   │
 │                                                          │
