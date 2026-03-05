@@ -1,3 +1,0 @@
-@host = "http://localhost:5163"
-
-GET {{host}}/api/makes
