@@ -31,9 +31,9 @@ Esta é uma aplicação web moderna que permite:
 │                                                          │
 │  Backend (API Server)                                    │
 │  ├── ASP.NET Core 7                                      │
-│  ├── Feature/Controllers (REST APIs)                             │
-│  ├── Feature/Services (Business Logic)                           │
-│  └── Persistence/Repositories (Data Access)                          │
+│  ├── Feature/Controllers (REST APIs)                     │
+│  ├── Feature/Services (Business Logic)                   │
+│  └── Persistence/Repositories (Data Access)              │
 │                      │                                   │
 │                      ↓                                   │
 │                                                          │
