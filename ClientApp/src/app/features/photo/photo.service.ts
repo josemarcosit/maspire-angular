@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/internal/operators/map';
-import { environment } from '../shared/config/environment';
+import { environment } from '../../shared/config/environment';
 
 @Injectable({
   providedIn: 'root',

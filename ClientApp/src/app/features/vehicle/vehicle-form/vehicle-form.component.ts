@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, map, Observable } from 'rxjs';
-import { VehicleService } from 'src/app/services/vehicle.service';
-import { SaveVehicle, Vehicle } from 'src/app/shared/models/vehicle';
+import { VehicleService } from '../vehicle.service';
+import { SaveVehicle, Vehicle } from 'src/app/core/models/vehicle';
 
 @Component({
   selector: 'app-vehicle-form',

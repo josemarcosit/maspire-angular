@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleService } from 'src/app/services/vehicle.service';
-import { LanguageService } from 'src/app/services/language.service';
-import { Make } from 'src/app/shared/models/make';
-import { Model } from 'src/app/shared/models/model';
-import { Vehicle } from 'src/app/shared/models/vehicle';
+import { VehicleService } from '../vehicle.service';
+import { LanguageService } from '../../../core/services/language.service';
+import { Make } from '../../../core/models/make';
+import { Model } from 'src/app/core/models/model';
+import { Vehicle } from 'src/app/core/models/vehicle';
 
 @Component({
   selector: 'app-vehicle',

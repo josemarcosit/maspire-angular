@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
-import { LanguageService } from 'src/app/services/language.service';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-language-selector',

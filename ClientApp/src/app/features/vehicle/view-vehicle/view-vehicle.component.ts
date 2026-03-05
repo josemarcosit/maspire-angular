@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PhotoService } from '../../services/photo.service';
-import { VehicleService } from '../../services/vehicle.service';
-import { environment } from '../../shared/config/environment';
+import { PhotoService } from '../../photo/photo.service';
+import { VehicleService } from '../../vehicle/vehicle.service';
+import { environment } from '../../../shared/config/environment';
 
 @Component({
   selector: 'app-view-vehicle',

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { Make } from '../shared/models/make';
-import { Vehicle } from '../shared/models/vehicle';
-import { environment } from '../shared/config/environment';
+import { Make } from '../../core/models/make';
+import { Vehicle } from '../../core/models/vehicle';
+import { environment } from '../../shared/config/environment';
 
 @Injectable({
   providedIn: 'root',
