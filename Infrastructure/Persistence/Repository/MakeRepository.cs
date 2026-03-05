@@ -15,6 +15,7 @@ namespace maspire_angular.Infrastructure.Persistence.Repository
         public async Task<IEnumerable<Make>> GetAllMakesAsync()
         {
             return await _context.Makes
+            .Include(m => m.Models)
             .ToListAsync();
         }
     }

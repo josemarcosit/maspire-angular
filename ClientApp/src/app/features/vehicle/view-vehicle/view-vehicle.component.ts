@@ -42,6 +42,7 @@ export class ViewVehicleComponent implements OnInit {
   ngOnInit() {
     this.vehicleService.getVehicle(this.vehicleId).subscribe({
       next: (v) => {
+        console.log(v);
         this.vehicle = v;
       },
       error: (err) => {

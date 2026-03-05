@@ -64,7 +64,7 @@
             class="form-check-input"
             type="radio"
             name="isRegistered"
-            [checked]="vehicle.isRegistered === true"
+            [checked]="vehicle.isRegistered == true"
             (change)="vehicle.isRegistered = true"
             id="registeredYes"
           />
@@ -75,7 +75,7 @@
             class="form-check-input"
             type="radio"
             name="isRegistered"
-            [checked]="vehicle.isRegistered === false"
+            [checked]="vehicle.isRegistered == false"
             (change)="vehicle.isRegistered = false"
             id="registeredNo"
           />

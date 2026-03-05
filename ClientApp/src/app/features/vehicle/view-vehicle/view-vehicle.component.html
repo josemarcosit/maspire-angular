@@ -53,28 +53,28 @@
         <!-- Basic Info -->
         <h3 class="h6">{{ 'vehicle.details' | translate }}</h3>
         <ul class="list-unstyled mb-3">
-          <li><strong>{{ 'vehicle.make' | translate }}:</strong> {{ vehicle.make.name }}</li>
-          <li><strong>{{ 'vehicle.model' | translate }}:</strong> {{ vehicle.model.name }}</li>
-          <li><strong>{{ 'vehicle.registered' | translate }}:</strong> {{ vehicle.isRegistered ? ('messages.yes' | translate) : ('messages.no' | translate) }}</li>
+          <li><strong>{{ 'vehicle.make' | translate }}:</strong> {{ vehicle?.make.name }}</li>
+          <li><strong>{{ 'vehicle.model' | translate }}:</strong> {{ vehicle?.model.name }}</li>
+          <li><strong>{{ 'vehicle.registered' | translate }}:</strong> {{ vehicle?.isRegistered ? ('messages.yes' | translate) : ('messages.no' | translate) }}</li>
         </ul>
 
         <!-- Features -->
         <h3 class="h6">{{ 'vehicle.features' | translate }}</h3>
         <ul class="list-unstyled mb-3">
-          <li *ngFor="let f of vehicle.features">{{ f.name }}</li>
+          <li *ngFor="let f of vehicle?.features">{{ f.name }}</li>
         </ul>
 
         <!-- Contact Info -->
         <h3 class="h6">{{ 'vehicle.contact' | translate }}</h3>
         <ul class="list-unstyled">
-          <li><strong>{{ 'vehicle.contactName' | translate }}:</strong> {{ vehicle.contact.name }}</li>
-          <li><strong>{{ 'vehicle.contactPhone' | translate }}:</strong> {{ vehicle.contact.phone }}</li>
-          <li><strong>{{ 'vehicle.contactEmail' | translate }}:</strong> {{ vehicle.contact.email }}</li>
+          <li><strong>{{ 'vehicle.contactName' | translate }}:</strong> {{ vehicle?.contact.name }}</li>
+          <li><strong>{{ 'vehicle.contactPhone' | translate }}:</strong> {{ vehicle?.contact.phone }}</li>
+          <li><strong>{{ 'vehicle.contactEmail' | translate }}:</strong> {{ vehicle?.contact.email }}</li>
         </ul>
 
         <!-- Actions -->
         <div class="mt-4 d-flex flex-wrap gap-2">
-          <a class="btn btn-primary" [routerLink]="['/vehicles/edit', vehicle.id]">
+          <a class="btn btn-primary" [routerLink]="['/vehicles/edit', vehicle?.id]">
             {{ 'vehicle.actions.edit' | translate }}
           </a>
           <button class="btn btn-danger" (click)="delete()">

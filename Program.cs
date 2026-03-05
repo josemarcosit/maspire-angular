@@ -1,5 +1,6 @@
 using maspire_angular.Features.Auth;
 using maspire_angular.Features.Feature;
+using maspire_angular.Features.Make;
 using maspire_angular.Features.Photo;
 using maspire_angular.Features.Vehicle;
 using maspire_angular.Infrastructure.Identity;
@@ -67,6 +68,7 @@ builder.Services.AddCors(options =>
 // Register services
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
+builder.Services.AddScoped<IMakeRepository, MakeRepository>();
 builder.Services.AddScoped<IFeatureRepository, FeatureRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
