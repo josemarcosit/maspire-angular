@@ -247,7 +247,7 @@ export class ExampleService {
 
 ### Database Schema Diagram
 
-![Schema](Docs/Schema.png)
+![Schema](docs/Schema.png)
 
 The diagram above shows the complete database structure with all entity relationships.
 

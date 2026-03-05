@@ -233,7 +233,7 @@ export class NovoService {
 
 ### Diagrama do Banco de Dados
 
-![Schema](Docs/Schema.png)
+![Schema](docs/Schema.png)
 
 O diagrama acima mostra a estrutura completa do banco de dados com todos os relacionamentos entre as entidades.
 
