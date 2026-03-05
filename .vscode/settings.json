@@ -12,5 +12,5 @@
         ".history": true
     },
     "explorerExclude.backup": {},
-    "dotnet.defaultSolution": "angular-vega.sln"
+    "dotnet.defaultSolution": "maspire-angular.sln"
 }

@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/angular-vega.csproj",
+                "${workspaceFolder}/maspire-angular.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/angular-vega.csproj",
+                "${workspaceFolder}/maspire-angular.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/angular-vega.csproj"
+                "${workspaceFolder}/maspire-angula.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

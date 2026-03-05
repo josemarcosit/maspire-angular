@@ -11,7 +11,7 @@ using maspire_angular.Infrastructure.Persistence;
 namespace maspire_angular.Migrations
 {
     [DbContext(typeof(MaspireDbContext))]
-    partial class VegaDbContextModelSnapshot : ModelSnapshot
+    partial class MaspireDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
