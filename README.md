@@ -16,6 +16,35 @@ Esta é uma aplicação web moderna que permite:
 
 ## Arquitetura
 
+```
+┌──────────────────────────────────────────────────────────┐
+│                  Vehicle Management System               │
+│                  (Monolithic Architecture)               │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│  Frontend (Single Page Application)                      │
+│  ├── Angular 14+                                         │
+│  ├── TypeScript                                          │
+│  └── Bootstrap 5                                         │
+│                      │                                   │
+│                      ↓ (HTTP/HTTPS)                      │
+│                                                          │
+│  Backend (API Server)                                    │
+│  ├── ASP.NET Core 7                                      │
+│  ├── Feature/Controllers (REST APIs)                             │
+│  ├── Feature/Services (Business Logic)                           │
+│  └── Persistence/Repositories (Data Access)                          │
+│                      │                                   │
+│                      ↓                                   │
+│                                                          │
+│  Data Layer                                              │
+│  ├── Entity Framework Core                               │
+│  ├── SQL Server Database                                 │
+│  └── Migrations                                          │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+```
+
 ### Stack Tecnológico
 
 **Backend:**
@@ -204,7 +233,7 @@ export class NovoService {
 
 ### Diagrama do Banco de Dados
 
-![Schema do Banco de Dados](Docs/Schema.png)
+![Schema](Docs/Schema.png)
 
 O diagrama acima mostra a estrutura completa do banco de dados com todos os relacionamentos entre as entidades.
 

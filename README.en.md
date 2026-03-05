@@ -44,9 +44,9 @@ This project uses a **monolithic architecture** pattern, where:
 │                                                          │
 │  Backend (API Server)                                    │
 │  ├── ASP.NET Core 7                                      │
-│  ├── Controllers (REST APIs)                             │
-│  ├── Services (Business Logic)                           │
-│  └── Repositories (Data Access)                          │
+│  ├── Feature/Controllers (REST APIs)                             │
+│  ├── Feature/Services (Business Logic)                           │
+│  └── Persistence/Repositories (Data Access)                          │
 │                      │                                   │
 │                      ↓                                   │
 │                                                          │
@@ -247,7 +247,7 @@ export class ExampleService {
 
 ### Database Schema Diagram
 
-![Database Schema](Docs/Schema.png)
+![Schema](Docs/Schema.png)
 
 The diagram above shows the complete database structure with all entity relationships.
 
