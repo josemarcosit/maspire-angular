@@ -104,7 +104,7 @@ This project uses a **monolithic architecture** pattern, where:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/maspire-angular.git
+git clone https://github.com/josemarcosit/maspire-angular.git
 cd maspire-angular
 ```
 
