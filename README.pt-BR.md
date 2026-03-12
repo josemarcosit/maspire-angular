@@ -87,7 +87,7 @@ Esta é uma aplicação web moderna que permite:
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/maspire-angular.git
+git clone https://github.com/josemarcosit/maspire-angular.git
 cd maspire-angular
 ```
 
